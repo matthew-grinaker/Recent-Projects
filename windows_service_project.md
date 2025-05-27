@@ -8,7 +8,7 @@
 
 I-Con Dashboard is a modern, responsive monitoring system for managing and visualizing I-Con interface servers and their connections. This full-stack application provides real-time monitoring, alerting, and management capabilities for enterprise integration environments.
 
-![I-Con Dashboard Screenshot]([https://placehold.co/800x450?text=I-Con+Dashboard+Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg))
+![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg))
 
 ## Features
 
