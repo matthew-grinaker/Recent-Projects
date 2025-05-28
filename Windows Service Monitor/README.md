@@ -13,7 +13,7 @@ I-Con Web Monitor is a comprehensive enterprise monitoring solution designed to 
 
 Screenshot of the dashboard using dummy data:
 
-![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg))
+![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg)
 
 ### 🎯 Key Value Propositions
 
