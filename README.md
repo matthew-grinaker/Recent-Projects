@@ -4,16 +4,16 @@ Welcome to my collection of recent projects! This repository serves as a showcas
 
 ## About This Repository
 
-This repo contains multiple projects, each with its own dedicated folder and documentation. Each project includes a `project-readme.md` file with detailed information about the specific implementation, technologies used, and setup instructions.
+This repo contains multiple projects, each with its own dedicated folder and documentation. Each project includes a `README.md` file with detailed information about the specific implementation, technologies used. Some projects may also contain other technical documentation.
 
 ## Repository Structure
 
 ```
 ├── project-1/
-│   ├── project-readme.md
+│   ├── README.md
 │   └── [project files]
 ├── project-2/
-│   ├── project-readme.md
+│   ├── README.md
 │   └── [project files]
 └── ...
 ```
@@ -21,14 +21,14 @@ This repo contains multiple projects, each with its own dedicated folder and doc
 ## Projects Overview
 
 Each project folder contains:
-- **project-readme.md** - Detailed documentation for that specific project
-- **other documentation** - Documents releated to that project
+- **README.md** - Detailed documentation for that specific project
+- **project files** - Documents releated to that project
 
 ## Getting Started
 
 1. Browse the project folders to find something that interests you
 2. Navigate to the specific project directory
-3. Read the `project-readme.md` for detailed information
+3. Read the `README.md` for detailed information
 
 ## Technologies & Skills
 
