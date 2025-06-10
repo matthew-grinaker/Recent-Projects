@@ -20,7 +20,7 @@ V2
 
 Server Details:
 
-![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/Screenshot2.png)
+![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/Windows Service Monitor/Server_Main.png)
 
 ### 🎯 Key Value Propositions
 
