@@ -16,7 +16,7 @@ V1
 ![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg)
 
 V2
-![I-Con Dashboard Screenshot_V2](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/Server-Details.png)
+![I-Con Dashboard Screenshot_V2](https://github.com/matthew-grinaker/Recent-Projects/blob/main/Windows%20Service%20Monitor/Server-Details.png)
 
 Server Details:
 
