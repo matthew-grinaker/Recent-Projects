@@ -12,8 +12,15 @@
 I-Con Web Monitor is a comprehensive enterprise monitoring solution designed to manage, monitor, and control I-Con integration servers in real-time. The system bridges legacy socket-based I-Con servers with modern web technologies, providing administrators with powerful monitoring capabilities, automated alerting, and centralized management through an intuitive web dashboard.
 
 Screenshot of the dashboard using dummy data:
-
+V1
 ![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/icon-monitoring-ui.svg)
+
+V2
+![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/Server-Details.png)
+
+Server Details:
+
+![I-Con Dashboard Screenshot](https://raw.githubusercontent.com/matthew-grinaker/projects/348a788eefebb79cda860eedbfb27facf7ec32c5/Screenshot2.png)
 
 ### 🎯 Key Value Propositions
 
