@@ -120,7 +120,7 @@ public class IconBridgeService : BackgroundService, IIconBridgeService
 
 ### **Business Acumen**
 - **Stakeholder Management**: Collaborated with operations, security, and management teams
-- **ROI Delivery**: Demonstrated $50K+ annual cost savings through automation
+- **ROI Delivery**: Demonstrated Increase in annual cost savings through automation
 - **Risk Mitigation**: Implemented predictive monitoring preventing 95% of outages
 - **Scalability Planning**: Designed system supporting 10x growth in monitored infrastructure
 - **Documentation Excellence**: Created comprehensive technical and user documentation
