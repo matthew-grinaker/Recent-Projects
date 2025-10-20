@@ -1,10 +1,10 @@
 # Recent Projects Portfolio
 
-Welcome to my collection of recent projects! This repository serves as a showcase of my latest work, experiments, and learning endeavors.
+Welcome to my collection of recent projects I’ve completed. This repository showcases my latest work experiments and learning.
 
 ## About This Repository
 
-This repo contains multiple projects, each with its own dedicated folder and documentation. Each project includes a `README.md` file with detailed information about the specific implementation, technologies used. Some projects may also contain other technical documentation.
+This repository contains multiple projects, each in its own dedicated folder with documentation.  Each project has a `README.md` file detailing its implementation and technologies used. Some projects also include other technical documentation.
 
 ## Repository Structure
 
@@ -32,4 +32,6 @@ Each project folder contains:
 
 ## Technologies & Skills
 
-This collection demonstrates experience with various technologies and concepts. Check individual project READMEs to see the specific tech stack used in each implementation.
+This collection demonstrates my experience with various technologies and concepts. Individual project READMEs provide further details and insight into the planning, design and implementation of each project.
+
+If interested or have any questions, contact me: matt@g-techsystems.com
