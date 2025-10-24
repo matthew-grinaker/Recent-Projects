@@ -21,7 +21,7 @@ This solution addresses critical operational challenges in managing distributed 
 | **Operational Efficiency** | 80% reduction in manual monitoring hours (40h/week to 8h/week) |
 | **System Reliability** | 99.9% system availability vs 98.5% before implementation |
 | **Incident Response** | 73% faster (45min to 12min mean time to detection) |
-| **Cost Savings** | $50K+ annual operational cost reduction |
+| **Cost Savings** | R50K+ annual operational cost reduction |
 | **Scalability** | Manages 100+ servers and 500+ interfaces simultaneously |
 
 ---
