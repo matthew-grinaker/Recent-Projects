@@ -13,11 +13,22 @@
     <h1>Trivia<br>Tic-Tac-Toe</h1>
     <p class="subtitle">Answer questions to claim your squares!</p>
     <form id="setup-form" autocomplete="off">
+      <label for="player-count-select">Number of Players</label>
+      <select id="player-count-select">
+        <option value="2" selected>2 Players</option>
+        <option value="3">3 Players</option>
+      </select>
+
       <label for="p1-name">Player 1 Name</label>
       <input type="text" id="p1-name" placeholder="Enter name" required maxlength="20">
 
       <label for="p2-name">Player 2 Name</label>
       <input type="text" id="p2-name" placeholder="Enter name" required maxlength="20">
+
+      <div id="p3-wrap" class="hidden">
+        <label for="p3-name">Player 3 Name</label>
+        <input type="text" id="p3-name" placeholder="Enter name" maxlength="20">
+      </div>
 
       <label for="timer-select">Question Timer</label>
       <select id="timer-select">
@@ -41,7 +52,26 @@
 
       <button type="submit" id="start-btn" disabled>Start Game</button>
     </form>
+    <button id="leaderboard-btn" class="btn-secondary" type="button">Leaderboard</button>
     <div id="start-error" class="error-msg hidden"></div>
+  </section>
+
+  <!-- LEADERBOARD SCREEN -->
+  <section id="leaderboard-screen" class="screen">
+    <h2 class="lb-title">Leaderboard</h2>
+    <div id="lb-table-wrap">
+      <p id="lb-empty" class="text-dim">No games played yet.</p>
+      <table id="lb-table" class="hidden">
+        <thead>
+          <tr><th>#</th><th>Name</th><th>W</th><th>L</th><th>D</th><th>GP</th><th>Win%</th></tr>
+        </thead>
+        <tbody id="lb-body"></tbody>
+      </table>
+    </div>
+    <div class="lb-buttons">
+      <button id="lb-back-btn" class="btn-primary">Back</button>
+      <button id="lb-clear-btn" class="btn-danger-sm">Clear</button>
+    </div>
   </section>
 
   <!-- LOADING SCREEN -->
@@ -56,6 +86,9 @@
     </div>
   </section>
 
+  <!-- CATEGORY NOTICE -->
+  <div id="category-notice" class="notice hidden"></div>
+
   <!-- PRE-GAME QUIZ -->
   <section id="quiz-screen" class="screen">
     <div class="quiz-header">
@@ -67,10 +100,7 @@
       <p class="question-text" id="quiz-question"></p>
       <div class="answers" id="quiz-answers"></div>
     </div>
-    <div class="quiz-scores">
-      <span id="quiz-p1-score"></span>
-      <span id="quiz-p2-score"></span>
-    </div>
+    <div class="quiz-scores" id="quiz-scores"></div>
   </section>
 
   <!-- FIRST-PLAYER REVEAL -->
@@ -84,28 +114,8 @@
 
   <!-- MAIN GAME -->
   <section id="game-screen" class="screen">
-    <div class="game-header">
-      <div class="player-info left" id="game-p1-info">
-        <span class="player-name" id="game-p1-name"></span>
-        <span class="player-mark" id="game-p1-mark"></span>
-      </div>
-      <div class="turn-indicator" id="turn-indicator">Your turn</div>
-      <div class="player-info right" id="game-p2-info">
-        <span class="player-name" id="game-p2-name"></span>
-        <span class="player-mark" id="game-p2-mark"></span>
-      </div>
-    </div>
-    <div class="board" id="board">
-      <button class="cell" data-index="0"></button>
-      <button class="cell" data-index="1"></button>
-      <button class="cell" data-index="2"></button>
-      <button class="cell" data-index="3"></button>
-      <button class="cell" data-index="4"></button>
-      <button class="cell" data-index="5"></button>
-      <button class="cell" data-index="6"></button>
-      <button class="cell" data-index="7"></button>
-      <button class="cell" data-index="8"></button>
-    </div>
+    <div class="game-header" id="game-header"></div>
+    <div class="board" id="board"></div>
   </section>
 
   <!-- QUESTION MODAL -->
