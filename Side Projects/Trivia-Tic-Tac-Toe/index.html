@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivia Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- START SCREEN -->
+  <section id="start-screen" class="screen active">
+    <h1>Trivia<br>Tic-Tac-Toe</h1>
+    <p class="subtitle">Answer questions to claim your squares!</p>
+    <form id="setup-form" autocomplete="off">
+      <label for="p1-name">Player 1 Name</label>
+      <input type="text" id="p1-name" placeholder="Enter name" required maxlength="20">
+
+      <label for="p2-name">Player 2 Name</label>
+      <input type="text" id="p2-name" placeholder="Enter name" required maxlength="20">
+
+      <label for="timer-select">Question Timer</label>
+      <select id="timer-select">
+        <option value="15">15 seconds</option>
+        <option value="30" selected>30 seconds</option>
+        <option value="45">45 seconds</option>
+        <option value="60">60 seconds</option>
+      </select>
+
+      <label for="category-select">Category</label>
+      <select id="category-select">
+        <option value="">Any Category</option>
+      </select>
+
+      <label for="difficulty-select">Difficulty</label>
+      <select id="difficulty-select">
+        <option value="easy" selected>Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+
+      <button type="submit" id="start-btn" disabled>Start Game</button>
+    </form>
+    <div id="start-error" class="error-msg hidden"></div>
+  </section>
+
+  <!-- LOADING SCREEN -->
+  <section id="loading-screen" class="screen">
+    <div class="loader-wrap">
+      <div class="spinner"></div>
+      <p>Loading trivia questions&hellip;</p>
+    </div>
+    <div id="load-error" class="error-msg hidden">
+      <p id="load-error-text"></p>
+      <button id="retry-load-btn" class="btn-secondary">Retry</button>
+    </div>
+  </section>
+
+  <!-- PRE-GAME QUIZ -->
+  <section id="quiz-screen" class="screen">
+    <div class="quiz-header">
+      <p class="quiz-progress" id="quiz-progress">Question 1 / 5</p>
+      <p class="quiz-turn" id="quiz-turn">Player 1's turn</p>
+      <div class="timer" id="quiz-timer">30</div>
+    </div>
+    <div class="quiz-body">
+      <p class="question-text" id="quiz-question"></p>
+      <div class="answers" id="quiz-answers"></div>
+    </div>
+    <div class="quiz-scores">
+      <span id="quiz-p1-score"></span>
+      <span id="quiz-p2-score"></span>
+    </div>
+  </section>
+
+  <!-- FIRST-PLAYER REVEAL -->
+  <section id="reveal-screen" class="screen">
+    <div class="reveal-card">
+      <p id="reveal-text" class="reveal-text"></p>
+      <p id="reveal-sub" class="reveal-sub"></p>
+      <button id="reveal-continue" class="btn-primary">Let's Go!</button>
+    </div>
+  </section>
+
+  <!-- MAIN GAME -->
+  <section id="game-screen" class="screen">
+    <div class="game-header">
+      <div class="player-info left" id="game-p1-info">
+        <span class="player-name" id="game-p1-name"></span>
+        <span class="player-mark" id="game-p1-mark"></span>
+      </div>
+      <div class="turn-indicator" id="turn-indicator">Your turn</div>
+      <div class="player-info right" id="game-p2-info">
+        <span class="player-name" id="game-p2-name"></span>
+        <span class="player-mark" id="game-p2-mark"></span>
+      </div>
+    </div>
+    <div class="board" id="board">
+      <button class="cell" data-index="0"></button>
+      <button class="cell" data-index="1"></button>
+      <button class="cell" data-index="2"></button>
+      <button class="cell" data-index="3"></button>
+      <button class="cell" data-index="4"></button>
+      <button class="cell" data-index="5"></button>
+      <button class="cell" data-index="6"></button>
+      <button class="cell" data-index="7"></button>
+      <button class="cell" data-index="8"></button>
+    </div>
+  </section>
+
+  <!-- QUESTION MODAL -->
+  <div id="question-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-turn" id="modal-turn"></p>
+        <div class="timer" id="modal-timer">30</div>
+      </div>
+      <p class="question-text" id="modal-question"></p>
+      <div class="answers" id="modal-answers"></div>
+    </div>
+  </div>
+
+  <!-- SECOND CHANCE MODAL -->
+  <div id="second-chance-modal" class="modal hidden">
+    <div class="modal-content second-chance-content">
+      <p class="second-chance-title">Second Chance?</p>
+      <p id="second-chance-text"></p>
+      <div class="timer" id="second-chance-timer">5</div>
+      <div class="second-chance-buttons">
+        <button id="sc-yes" class="btn-primary">Yes</button>
+        <button id="sc-no" class="btn-secondary">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANSWER FEEDBACK MODAL -->
+  <div id="feedback-modal" class="modal hidden">
+    <div class="modal-content feedback-content">
+      <p id="feedback-icon" class="feedback-icon"></p>
+      <p id="feedback-text" class="feedback-text"></p>
+    </div>
+  </div>
+
+  <!-- END SCREEN -->
+  <section id="end-screen" class="screen">
+    <div class="end-card">
+      <p id="end-result" class="end-result"></p>
+      <button id="play-again-btn" class="btn-primary">Play Again</button>
+    </div>
+  </section>
+
+  <script src="game.js"></script>
+</body>
+</html>
