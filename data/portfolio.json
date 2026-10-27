@@ -10,6 +10,27 @@
     "linkedin": "https://www.linkedin.com/in/mk-grinaker",
     "cv": "cv/Matthew-Grinaker-CV.pdf"
   },
+  "brand": {
+    "tagline": "Taking your ideas further.",
+    "pitch": "I help businesses take an idea all the way to production software, and put AI agents to work in their day-to-day operations with the controls that make them safe to rely on.",
+    "services": [
+      {
+        "icon": "software",
+        "name": "Software",
+        "detail": "Production platforms built end to end, from multi-tenant SaaS and trading systems to real-time monitoring and tablet check-in."
+      },
+      {
+        "icon": "consulting",
+        "name": "Tech Consulting",
+        "detail": "Technical direction and roadmaps for client and in-house products across trade finance, ERP, logistics, property and industrial automation."
+      },
+      {
+        "icon": "ai",
+        "name": "AI work processes",
+        "detail": "AI agents that plan, build and review work, with evals, an independent grader on every task and human approval on every change."
+      }
+    ]
+  },
   "stats": [
     {
       "value": "10+",
