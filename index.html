@@ -106,7 +106,13 @@
     flex: 1 1 400px; min-width: 0; align-self: stretch; min-height: 320px; position: relative;
     border-radius: 24px; overflow: hidden; border: 1px solid #2a2a2a; padding: 20px;
     display: flex; flex-direction: column; justify-content: flex-end;
-    background: #1a1a1a url("assets/grinaker-texture.jpg") center / cover no-repeat;
+    background: #1a1a1a; isolation: isolate;
+  }
+  /* Softened brand texture behind the Now panel, scaled so the blur has no hard edges */
+  .hero-visual::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: url("assets/grinaker-texture.jpg") center / cover no-repeat;
+    filter: blur(14px) brightness(.75); transform: scale(1.15);
   }
   .now-panel {
     background: rgba(5, 5, 5, .74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
