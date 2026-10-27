@@ -235,12 +235,19 @@
   .search::placeholder { color: var(--faint); }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .card {
-    display: flex; flex-direction: column; gap: 10px; text-align: left;
+    display: flex; flex-direction: column; gap: 10px; text-align: left; overflow: hidden;
     background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
     padding: 26px; cursor: pointer; font: inherit; color: inherit;
     transition: border-color .15s, transform .15s;
   }
   .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .card .shot {
+    margin: -26px -26px 8px; width: calc(100% + 52px); height: auto; flex: none; aspect-ratio: 16 / 10; display: block;
+    object-fit: cover; object-position: top; border-bottom: 1px solid var(--border); background: var(--surface-2);
+  }
+  .card .shot.glow { background: var(--glow); display: flex; align-items: flex-end; padding: 16px; }
+  .card .shot.glow span { font-size: 13px; color: #fff; background: rgba(5, 5, 5, .55); border-radius: 999px; padding: 6px 14px; }
+  .dlg-shot { display: block; width: 100%; border-radius: 14px; border: 1px solid var(--border-strong); margin: 4px 0 20px; }
   .card .top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
   .card h3 { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.3; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -609,6 +616,7 @@
       (!q || [x.title, x.tagline, x.sector, x.highlight, ...x.stack].join(" ").toLowerCase().includes(q)));
     $("grid").innerHTML = list.length ? list.map((x) => `
       <button class="card" data-slug="${esc(x.slug)}">
+        ${x.image ? `<img class="shot" src="${esc(x.image)}" alt="${esc(x.imageAlt || x.title)}" loading="lazy" width="1440" height="900">` : `<div class="shot glow" aria-hidden="true"><span>${esc(x.category)}</span></div>`}
         <div class="top"><span>${esc(x.sector)}</span><span class="status ${statusClass(x.status)}">${esc(x.status)}</span></div>
         <h3>${esc(x.title)}</h3>
         <p>${esc(x.tagline)}</p>
@@ -665,7 +673,11 @@
     try {
       const res = await fetch(`projects/${encodeURIComponent(slug)}.md`, { cache: "no-cache" });
       if (!res.ok) throw new Error(res.status);
-      $("dlg-body").innerHTML = md(await res.text());
+      const x = bySlug[slug];
+      const html = md(await res.text());
+      const shot = x && x.image ? `<img class="dlg-shot" src="${esc(x.image)}" alt="${esc(x.imageAlt || x.title)}">` : "";
+      // Screenshot sits under the write-up's title
+      $("dlg-body").innerHTML = shot ? html.replace(/(<\/h1>)/, `$1${shot}`) : html;
     } catch (e) {
       $("dlg-body").innerHTML = `<p class="empty">This write-up could not be loaded.</p>`;
     }

@@ -134,7 +134,9 @@
         "Node.js",
         "Electron",
         "Slack"
-      ]
+      ],
+      "image": "assets/projects/claude-fleet.webp",
+      "imageAlt": "Claude Fleet dashboard showing live agent sessions (demo data)"
     },
     {
       "slug": "gym-membership-system",
@@ -247,7 +249,9 @@
         "Wagmi",
         "RainbowKit",
         "Viem"
-      ]
+      ],
+      "image": "assets/projects/crypto-presale-platform.webp",
+      "imageAlt": "Giffy Goat presale page"
     }
   ],
   "experience": [
