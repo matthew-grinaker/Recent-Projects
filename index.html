@@ -235,27 +235,12 @@
   .search::placeholder { color: var(--faint); }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .card {
-    display: flex; flex-direction: column; gap: 10px; text-align: left; overflow: hidden;
+    display: flex; flex-direction: column; gap: 10px; text-align: left;
     background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
     padding: 26px; cursor: pointer; font: inherit; color: inherit;
     transition: border-color .15s, transform .15s;
   }
   .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
-  .card .shot {
-    margin: -26px -26px 8px; width: calc(100% + 52px); height: auto; flex: none; aspect-ratio: 16 / 10; display: block;
-    object-fit: cover; object-position: top; border-bottom: 1px solid var(--border); background: var(--surface-2);
-  }
-  .card .shot.glow { background: var(--glow); display: flex; align-items: flex-end; padding: 16px; }
-  .card .shot.glow span { font-size: 13px; color: #fff; background: rgba(5, 5, 5, .55); border-radius: 999px; padding: 6px 14px; }
-  .card .shot-wrap { position: relative; display: block; flex: none; margin: -26px -26px 8px; }
-  .card .shot-wrap .shot { margin: 0; width: 100%; }
-  .demo-badge {
-    position: absolute; top: 12px; right: 12px; font-size: 12px; font-weight: 500; color: #fff;
-    background: rgba(5, 5, 5, .7); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 10px;
-    transition: opacity .2s;
-  }
-  .card.playing .demo-badge { opacity: 0; }
-  .dlg-shot { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--border-strong); margin: 4px 0 20px; }
   .card .top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
   .card h3 { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.3; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -617,27 +602,6 @@
   search.insertAdjacentHTML("beforebegin", categories.map((c) =>
     `<button class="chip" data-cat="${esc(c)}" aria-pressed="${c === "All"}">${esc(c)}</button>`).join(""));
 
-  // Demo clips play on hover or keyboard focus; touch screens and reduced motion get the still
-  const hoverDemo = matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function shotHtml(x) {
-    if (!x.image) return `<div class="shot glow" aria-hidden="true"><span>${esc(x.category)}</span></div>`;
-    const alt = esc(x.imageAlt || x.title);
-    if (x.video && hoverDemo) return `<span class="shot-wrap"><video class="shot" src="${esc(x.video)}" poster="${esc(x.image)}" muted loop playsinline preload="none" width="960" height="600" aria-label="${alt}"></video><span class="demo-badge" aria-hidden="true">▶ Demo</span></span>`;
-    return `<img class="shot" src="${esc(x.image)}" alt="${alt}" loading="lazy" width="1440" height="900">`;
-  }
-  function wireDemos() {
-    $("grid").querySelectorAll(".card").forEach((card) => {
-      const v = card.querySelector("video");
-      if (!v) return;
-      const play = () => { card.classList.add("playing"); v.play().catch(() => {}); };
-      const stop = () => { card.classList.remove("playing"); v.pause(); };
-      card.addEventListener("mouseenter", play);
-      card.addEventListener("mouseleave", stop);
-      card.addEventListener("focus", play);
-      card.addEventListener("blur", stop);
-    });
-  }
-
   function renderGrid() {
     const q = search.value.trim().toLowerCase();
     const list = data.projects.filter((x) =>
@@ -645,7 +609,6 @@
       (!q || [x.title, x.tagline, x.sector, x.highlight, ...x.stack].join(" ").toLowerCase().includes(q)));
     $("grid").innerHTML = list.length ? list.map((x) => `
       <button class="card" data-slug="${esc(x.slug)}">
-        ${shotHtml(x)}
         <div class="top"><span>${esc(x.sector)}</span><span class="status ${statusClass(x.status)}">${esc(x.status)}</span></div>
         <h3>${esc(x.title)}</h3>
         <p>${esc(x.tagline)}</p>
@@ -653,7 +616,6 @@
         <div class="year">${esc(x.year)}</div>
         <div class="tags">${x.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
       </button>`).join("") : `<p class="empty">No projects match that search.</p>`;
-    wireDemos();
   }
   $("filters").addEventListener("click", (e) => {
     const chip = e.target.closest(".chip");
@@ -703,13 +665,7 @@
     try {
       const res = await fetch(`projects/${encodeURIComponent(slug)}.md`, { cache: "no-cache" });
       if (!res.ok) throw new Error(res.status);
-      const x = bySlug[slug];
-      const html = md(await res.text());
-      const shot = !x || !x.image ? "" : x.video
-        ? `<video class="dlg-shot" src="${esc(x.video)}" poster="${esc(x.image)}" controls muted loop playsinline preload="none" width="960" height="600" aria-label="${esc(x.imageAlt || x.title)}"></video>`
-        : `<img class="dlg-shot" src="${esc(x.image)}" alt="${esc(x.imageAlt || x.title)}">`;
-      // Screenshot or demo clip sits under the write-up's title
-      $("dlg-body").innerHTML = shot ? html.replace(/(<\/h1>)/, `$1${shot}`) : html;
+      $("dlg-body").innerHTML = md(await res.text());
     } catch (e) {
       $("dlg-body").innerHTML = `<p class="empty">This write-up could not be loaded.</p>`;
     }

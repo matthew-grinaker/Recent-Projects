@@ -11,7 +11,6 @@ This repo is a no-code portfolio for clients, recruiters, prospects and partners
 
 - `data/portfolio.json`: drives the dashboard (`index.html`). It holds `updated` (YYYY-MM-DD), `profile`, `brand` (tagline, pitch and the three services shown on the Now tab; change only when Matt asks), `stats`, `now` (current work), `projects` (cards, newest first), `experience`, `education` and `skills`.
 - `projects/<slug>.md`: one short write-up per project, following `projects/_TEMPLATE.md` (about half a page).
-- `assets/projects/<slug>.webp` (1440×900 screenshot) and optional `<slug>.mp4` (a 10–15 s muted demo clip, 960×600, under 1 MB): set a project's `image`, `imageAlt` and `video` fields to show them. The clip plays when a visitor hovers over or tabs to the card; phones and reduced-motion visitors see the screenshot. Blur client names before adding either.
 - `README.md`: mirrors "Currently working on" and the "Selected work" table. Keep it in sync with the JSON.
 - `cv/Matthew-Grinaker-CV.pdf`: the published CV.
 - Change sources: the `## Pending` list in `UPDATES.md`, any PDF in `cv/inbox/`, and any updates given in the prompt that started this run.
