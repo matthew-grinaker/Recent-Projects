@@ -466,6 +466,12 @@
   $("name").textContent = p.name;
   $("title").textContent = `${p.title} · ${p.company}`;
   $("pitch").textContent = b.pitch || p.summary;
+  if (b.tagline) {
+    // Last word in the accent colour, as in the brand mockup
+    const words = b.tagline.trim().split(/\s+/);
+    const last = words.pop();
+    $("tagline").innerHTML = words.length ? `${esc(words.join(" "))} <span>${esc(last)}</span>` : `<span>${esc(last)}</span>`;
+  }
   $("hero-tags").innerHTML = (b.services || []).map((s) => `<span class="pill">${esc(s.name)}</span>`).join("");
   $("actions").innerHTML = `
     <a class="btn primary" href="#now-list">See what I'm building</a>
