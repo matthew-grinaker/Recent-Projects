@@ -1,0 +1,215 @@
+{
+  "updated": "2026-10-27",
+  "profile": {
+    "name": "Matthew Grinaker",
+    "title": "AI Product Engineering Lead · CTO · Agentic Systems",
+    "company": "Grinaker Technologies",
+    "location": "KwaZulu-Natal, South Africa · EU citizen",
+    "summary": "Software engineering leader with 10+ years designing, building and running production software across enterprise SaaS, automation, trade finance and mission-critical industrial systems. Since 2025 I've been building AI agent systems that are useful, reliable and accountable in real business operations.",
+    "email": "matt@g-techsystems.com",
+    "linkedin": "https://www.linkedin.com/in/mk-grinaker",
+    "cv": "cv/Matthew-Grinaker-CV.pdf"
+  },
+  "stats": [
+    { "value": "10+", "label": "years building production software" },
+    { "value": "7 mo", "label": "from start to first live StockChain customer" },
+    { "value": "130+", "label": "PRDs delivered by my AI agent pipeline" },
+    { "value": "1,000+", "label": "IoT devices run in real time" }
+  ],
+  "now": [
+    {
+      "slug": "stockchain",
+      "headline": "Growing StockChain beyond its first live customer",
+      "detail": "Data platform for import merchants: one deal flow from RFQ to payment, with an AI document reader that keeps the source of every value."
+    },
+    {
+      "slug": "shared-second-brain",
+      "headline": "Rolling out a shared second brain for the team's AI agents",
+      "detail": "One place for decisions, rules, handovers and work claims, so every agent session starts from the same picture."
+    },
+    {
+      "slug": "gtech-os",
+      "headline": "Building GTech OS, a governed multi-agent platform",
+      "detail": "Agents plan, build and review work; plain code enforces budgets, approvals and safety checks."
+    },
+    {
+      "slug": "claude-fleet",
+      "headline": "Running my agent fleet from one control room",
+      "detail": "See and steer every AI coding session from one page, and answer agents from Slack when away."
+    }
+  ],
+  "projects": [
+    {
+      "slug": "stockchain",
+      "title": "StockChain",
+      "tagline": "Data platform for import merchants, from RFQ to payment.",
+      "sector": "Trade finance",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "Live",
+      "highlight": "Live with first customer in 7 months",
+      "stack": ["TypeScript", "Node.js", "PostgreSQL", "Redis", "React", "Docker"]
+    },
+    {
+      "slug": "shared-second-brain",
+      "title": "Shared Second Brain",
+      "tagline": "Shared context, rules and tooling for a team's AI agents.",
+      "sector": "AI engineering",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "Live",
+      "highlight": "In daily use since Oct 2026",
+      "stack": ["Node.js", "GitHub", "Claude Code"]
+    },
+    {
+      "slug": "gtech-os",
+      "title": "GTech OS",
+      "tagline": "Multi-agent platform with hard safety and budget limits.",
+      "sector": "AI engineering",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "In progress",
+      "highlight": "3 agents planned, built and reviewed a task on first run",
+      "stack": ["TypeScript", "Claude Agent SDK"]
+    },
+    {
+      "slug": "claude-fleet",
+      "title": "Claude Fleet",
+      "tagline": "Control room for every AI agent session.",
+      "sector": "AI engineering",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "Live",
+      "highlight": "Supervise agents from desk or Slack",
+      "stack": ["Node.js", "Electron", "Slack"]
+    },
+    {
+      "slug": "icon-web-monitor",
+      "title": "i-Con Web Monitor",
+      "tagline": "Live monitoring for a fleet of legacy integration servers.",
+      "sector": "Enterprise integration",
+      "category": "Automation & Integration",
+      "year": "2025",
+      "status": "Live",
+      "highlight": "Failure detection from 30+ min to under 2",
+      "stack": ["C#", ".NET 8", "SignalR", "React", "Redis"]
+    },
+    {
+      "slug": "deal-management-system",
+      "title": "Deal Management System",
+      "tagline": "End-to-end property transaction management for agencies.",
+      "sector": "Real estate",
+      "category": "SaaS Platforms",
+      "year": "2025",
+      "status": "Live",
+      "highlight": "200+ API endpoints, all personal data encrypted",
+      "stack": ["ASP.NET Core", "SQL Server", "Angular", "Azure DevOps"]
+    },
+    {
+      "slug": "event-finance-platform",
+      "title": "Event Finance Platform",
+      "tagline": "Budgets, suppliers and sponsor reporting for festival organisers.",
+      "sector": "Events",
+      "category": "SaaS Platforms",
+      "year": "2025",
+      "status": "Designed",
+      "highlight": "Targets 75% less manual reporting",
+      "stack": ["React", "Node.js", "PostgreSQL", "AWS"]
+    },
+    {
+      "slug": "autonomous-trading-bot",
+      "title": "Autonomous Trading Bot",
+      "tagline": "Strategy alerts turned into live broker orders, 24/7.",
+      "sector": "Financial markets",
+      "category": "Automation & Integration",
+      "year": "2025",
+      "status": "Live",
+      "highlight": "99.9% uptime, orders in under 2 s",
+      "stack": ["Python", "FastAPI", "PostgreSQL", "Docker"]
+    },
+    {
+      "slug": "web3-poker-platform",
+      "title": "Web3 Poker Platform",
+      "tagline": "Real-time multiplayer poker with wallet-held funds.",
+      "sector": "Gaming",
+      "category": "Web3",
+      "year": "2025",
+      "status": "Delivered",
+      "highlight": "Sub-second real-time play",
+      "stack": ["React", "Node.js", "Socket.IO", "Ethereum"]
+    },
+    {
+      "slug": "crypto-presale-platform",
+      "title": "Giffy Goat Presale",
+      "tagline": "Multi-chain token presale site on Ethereum and BNB Chain.",
+      "sector": "Crypto",
+      "category": "Web3",
+      "year": "2025",
+      "status": "Delivered",
+      "highlight": "Two chains, live data, automatic stages",
+      "stack": ["React", "Wagmi", "RainbowKit", "Viem"]
+    },
+    {
+      "slug": "gym-membership-system",
+      "title": "Gym Membership System",
+      "tagline": "Back office plus tablet check-in for a gym.",
+      "sector": "Fitness",
+      "category": "SaaS Platforms",
+      "year": "2025",
+      "status": "Proposal",
+      "highlight": "Targets 90% less manual admin",
+      "stack": ["Web app", "WebSockets", "Tablet kiosk"]
+    }
+  ],
+  "experience": [
+    {
+      "period": "2021 – Present",
+      "role": "Technical Consultant",
+      "org": "Grinaker Technologies",
+      "points": [
+        "Set technical direction and roadmaps for client and in-house products across trade finance, ERP, logistics, property and industrial automation.",
+        "Shipped StockChain to its first live customer in 7 months.",
+        "Run engineering through AI agents with evals, an independent grader on every ticket and human approval on every merge."
+      ]
+    },
+    {
+      "period": "2024 – 2025",
+      "role": "Senior Software Developer & Team Lead (contract)",
+      "org": "Prosolutions Integration",
+      "points": [
+        "Led the development team and owned code review and QA for client integration projects.",
+        "Technical point of contact for clients, from requirements to release."
+      ]
+    },
+    {
+      "period": "2019 – 2021",
+      "role": "Chief Technical Officer",
+      "org": "GoMobile (Pty) Ltd",
+      "points": [
+        "Owned architecture of a multi-tenant no-code platform used by 30+ client organisations; ran a 12-person Agile team.",
+        "Cut p95 API response from 2–5 s to under 500 ms with zero downtime, and cut production incidents by 60%.",
+        "Led POPI compliance and passed 100% of third-party security audits."
+      ]
+    },
+    {
+      "period": "2016 – 2019",
+      "role": "Senior Software Engineer",
+      "org": "Nerospec",
+      "points": [
+        "Designed GPS route control and collision avoidance for rail vehicles in working mines, with zero safety incidents.",
+        "Processed 500–1,000 telemetry points a second at 99.9% uptime."
+      ]
+    }
+  ],
+  "education": [
+    { "period": "2010 – 2014", "qualification": "B.Eng Computer Engineering", "org": "University of Pretoria" }
+  ],
+  "skills": [
+    { "group": "AI & Agents", "items": ["Claude Agent SDK", "Claude Code", "MCP servers", "Multi-agent orchestration", "Evals & graders", "Context engineering"] },
+    { "group": "Architecture", "items": ["Multi-tenant SaaS", "Event-driven design", "API-first", "Microservices"] },
+    { "group": "Languages", "items": ["C#", "TypeScript", "Python", "SQL", "C++"] },
+    { "group": "Platforms", "items": [".NET / ASP.NET Core", "Node.js", "React", "Angular", "FastAPI"] },
+    { "group": "Cloud & Data", "items": ["Azure", "Docker", "GitHub Actions", "PostgreSQL", "SQL Server", "Redis"] },
+    { "group": "Leadership", "items": ["Technical leadership", "Team management", "Agile & Scrum", "Product roadmaps"] }
+  ]
+}

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matthew Grinaker · Portfolio</title>
+<meta name="description" content="Projects, current work and CV of Matthew Grinaker, AI product engineering lead and CTO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --surface-2: #eef1f5;
+    --text: #14171c;
+    --muted: #5a6372;
+    --border: #dde2e9;
+    --accent: #2457d6;
+    --accent-soft: #e5ecfc;
+    --live: #1f8a4c;
+    --progress: #b26b00;
+    --plan: #6b5bd2;
+    --shadow: 0 1px 2px rgba(20, 23, 28, .06), 0 4px 16px rgba(20, 23, 28, .05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1216;
+      --surface: #171b21;
+      --surface-2: #1f242c;
+      --text: #e8ebf0;
+      --muted: #9aa3b2;
+      --border: #2a3039;
+      --accent: #7aa2ff;
+      --accent-soft: #1e2a45;
+      --live: #4cc77f;
+      --progress: #f0a640;
+      --plan: #a99cff;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  header.hero { padding: 48px 0 24px; }
+  .hero h1 { font-size: clamp(28px, 5vw, 40px); margin: 0 0 4px; letter-spacing: -.02em; }
+  .hero .title { color: var(--accent); font-weight: 600; margin: 0 0 12px; }
+  .hero .summary { max-width: 760px; color: var(--muted); margin: 0 0 20px; }
+  .hero .meta { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px; border-radius: 8px; font-weight: 600; font-size: 14px;
+    text-decoration: none; border: 1px solid var(--border); color: var(--text); background: var(--surface);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) { .btn.primary { color: #0f1216; } }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
+  .stat b { display: block; font-size: 26px; letter-spacing: -.02em; }
+  .stat span { color: var(--muted); font-size: 13px; }
+
+  nav.tabs {
+    position: sticky; top: 0; z-index: 5; background: var(--bg);
+    border-bottom: 1px solid var(--border); margin-top: 24px;
+  }
+  nav.tabs .wrap { display: flex; gap: 4px; }
+  nav.tabs button {
+    background: none; border: 0; padding: 14px 14px; font: inherit; font-weight: 600; color: var(--muted);
+    border-bottom: 2px solid transparent; cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] { color: var(--text); border-color: var(--accent); }
+
+  section.panel { padding: 28px 0 56px; }
+  section.panel[hidden] { display: none; }
+  h2 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 20px; font-size: 14px; }
+
+  .now-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .now-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 10px; padding: 18px; box-shadow: var(--shadow); cursor: pointer;
+  }
+  .now-item h3 { margin: 0 0 6px; font-size: 16px; }
+  .now-item p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .search {
+    margin-left: auto; min-width: 200px; flex: 0 1 260px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    border-radius: 8px; padding: 8px 12px; font: inherit; font-size: 14px;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card {
+    display: flex; flex-direction: column; gap: 8px; text-align: left;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; box-shadow: var(--shadow); cursor: pointer; font: inherit; color: inherit;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover, .card:focus-visible, .now-item:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .card .top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--muted); }
+  .card h3 { margin: 0; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  .card .highlight { color: var(--text); font-weight: 600; font-size: 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+  .tag { background: var(--surface-2); border-radius: 6px; padding: 2px 8px; font-size: 12px; color: var(--muted); }
+  .status { font-weight: 600; }
+  .status.live { color: var(--live); }
+  .status.progress { color: var(--progress); }
+  .status.plan { color: var(--plan); }
+  .empty { color: var(--muted); padding: 24px 0; }
+
+  .cv-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+  .job { padding: 0 0 20px 18px; border-left: 2px solid var(--border); position: relative; }
+  .job::before { content: ""; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .job .period { font-size: 13px; color: var(--muted); }
+  .job h3 { margin: 2px 0 0; font-size: 16px; }
+  .job .org { color: var(--accent); font-weight: 600; font-size: 14px; }
+  .job ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+  .skill-group { margin-bottom: 16px; }
+  .skill-group h4 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+
+  dialog {
+    width: min(760px, calc(100% - 32px)); max-height: calc(100% - 48px);
+    border: 1px solid var(--border); border-radius: 14px; padding: 0;
+    background: var(--surface); color: var(--text);
+  }
+  dialog::backdrop { background: rgba(10, 12, 16, .55); }
+  .dlg-head { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 10px; background: var(--surface); }
+  .dlg-close { background: var(--surface-2); border: 0; border-radius: 8px; padding: 6px 12px; font: inherit; color: var(--text); cursor: pointer; }
+  .dlg-body { padding: 0 28px 28px; }
+  .dlg-body h1 { font-size: 26px; margin: 0 0 8px; }
+  .dlg-body h2 { font-size: 17px; margin: 22px 0 6px; }
+  .dlg-body p, .dlg-body li { color: var(--text); }
+  .dlg-body ul { padding-left: 20px; }
+
+  footer { border-top: 1px solid var(--border); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .cv-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .grid, .now-list { grid-template-columns: 1fr; }
+    .search { margin-left: 0; flex: 1 1 100%; }
+    .dlg-body { padding: 0 18px 22px; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1 id="name">Matthew Grinaker</h1>
+      <p class="title" id="title"></p>
+      <p class="summary" id="summary"></p>
+      <div class="meta" id="meta"></div>
+      <div class="actions" id="actions"></div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Sections">
+    <div class="wrap" role="tablist">
+      <button role="tab" id="tab-now" aria-controls="now" aria-selected="true">Now</button>
+      <button role="tab" id="tab-projects" aria-controls="projects" aria-selected="false">Projects</button>
+      <button role="tab" id="tab-cv" aria-controls="cv" aria-selected="false">CV</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="panel" id="now" role="tabpanel" aria-labelledby="tab-now">
+      <h2>Currently working on</h2>
+      <p class="sub" id="updated"></p>
+      <div class="now-list" id="now-list"></div>
+    </section>
+
+    <section class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects" hidden>
+      <h2>Projects</h2>
+      <p class="sub">Short summaries of recent client and in-house work. Select a project to read more.</p>
+      <div class="filters" id="filters">
+        <input class="search" id="search" type="search" placeholder="Search projects or tech" aria-label="Search projects">
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="panel" id="cv" role="tabpanel" aria-labelledby="tab-cv" hidden>
+      <h2>Curriculum vitae</h2>
+      <p class="sub"><a id="cv-link" href="#" download>Download the full CV (PDF)</a></p>
+      <div class="cv-grid">
+        <div>
+          <h3 style="margin:0 0 14px;font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Experience</h3>
+          <div id="experience"></div>
+          <h3 style="margin:8px 0 14px;font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Education</h3>
+          <div id="education"></div>
+        </div>
+        <aside id="skills"></aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap" id="footer"></div>
+  </footer>
+
+  <dialog id="dlg" aria-label="Project details">
+    <div class="dlg-head"><button class="dlg-close" id="dlg-close">Close</button></div>
+    <div class="dlg-body" id="dlg-body"></div>
+  </dialog>
+
+<script>
+(async function () {
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const statusClass = (s) => /live|delivered/i.test(s) ? "live" : /progress/i.test(s) ? "progress" : "plan";
+  // Minimal Markdown for the project write-ups: headings, bullet lists, bold, italics, links, paragraphs
+  const inline = (t) => esc(t)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/_(.+?)_/g, "<em>$1</em>")
+    .replace(/\[(.+?)\]\((https?:[^)\s]+|mailto:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  function md(src) {
+    const out = [];
+    let list = null, para = [];
+    const flushPara = () => { if (para.length) { out.push(`<p>${inline(para.join(" "))}</p>`); para = []; } };
+    const flushList = () => { if (list) { out.push(`<ul>${list.map((li) => `<li>${inline(li)}</li>`).join("")}</ul>`); list = null; } };
+    for (const line of src.split(/\r?\n/)) {
+      const h = line.match(/^(#{1,3})\s+(.*)/);
+      const li = line.match(/^\s*[-*]\s+(.*)/);
+      if (h) { flushPara(); flushList(); out.push(`<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`); }
+      else if (li) { flushPara(); (list = list || []).push(li[1]); }
+      else if (!line.trim()) { flushPara(); flushList(); }
+      else { flushList(); para.push(line.trim()); }
+    }
+    flushPara(); flushList();
+    return out.join("\n");
+  }
+  const fmtDate = (d) => new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+  let data;
+  try {
+    data = await (await fetch("data/portfolio.json", { cache: "no-cache" })).json();
+  } catch (e) {
+    $("summary").textContent = "The portfolio data could not be loaded. Please view the project write-ups in the repository instead.";
+    return;
+  }
+  const p = data.profile;
+
+  // Header
+  $("name").textContent = p.name;
+  $("title").textContent = p.title;
+  $("summary").textContent = p.summary;
+  $("meta").textContent = `${p.company} · ${p.location}`;
+  $("actions").innerHTML = `
+    <a class="btn primary" href="mailto:${esc(p.email)}">Email me</a>
+    <a class="btn" href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="${esc(p.cv)}" download>Download CV</a>`;
+  $("stats").innerHTML = data.stats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("");
+  $("footer").innerHTML = `Last updated ${esc(fmtDate(data.updated))} · <a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`;
+
+  // Now
+  $("updated").textContent = `Updated ${fmtDate(data.updated)}`;
+  $("now-list").innerHTML = data.now.map((n) => `
+    <article class="now-item" tabindex="0" data-slug="${esc(n.slug)}">
+      <h3>${esc(n.headline)}</h3><p>${esc(n.detail)}</p>
+    </article>`).join("");
+
+  // Projects
+  const categories = ["All", ...new Set(data.projects.map((x) => x.category))];
+  let activeCat = "All";
+  const search = $("search");
+  search.insertAdjacentHTML("beforebegin", categories.map((c) =>
+    `<button class="chip" data-cat="${esc(c)}" aria-pressed="${c === "All"}">${esc(c)}</button>`).join(""));
+
+  function renderGrid() {
+    const q = search.value.trim().toLowerCase();
+    const list = data.projects.filter((x) =>
+      (activeCat === "All" || x.category === activeCat) &&
+      (!q || [x.title, x.tagline, x.sector, x.highlight, ...x.stack].join(" ").toLowerCase().includes(q)));
+    $("grid").innerHTML = list.length ? list.map((x) => `
+      <button class="card" data-slug="${esc(x.slug)}">
+        <div class="top"><span>${esc(x.sector)} · ${esc(x.year)}</span><span class="status ${statusClass(x.status)}">${esc(x.status)}</span></div>
+        <h3>${esc(x.title)}</h3>
+        <p>${esc(x.tagline)}</p>
+        <div class="highlight">${esc(x.highlight)}</div>
+        <div class="tags">${x.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+      </button>`).join("") : `<p class="empty">No projects match that search.</p>`;
+  }
+  $("filters").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    activeCat = chip.dataset.cat;
+    document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === chip));
+    renderGrid();
+  });
+  search.addEventListener("input", renderGrid);
+  renderGrid();
+
+  // CV
+  $("cv-link").href = p.cv;
+  $("experience").innerHTML = data.experience.map((j) => `
+    <div class="job">
+      <div class="period">${esc(j.period)}</div>
+      <h3>${esc(j.role)}</h3>
+      <div class="org">${esc(j.org)}</div>
+      <ul>${j.points.map((pt) => `<li>${esc(pt)}</li>`).join("")}</ul>
+    </div>`).join("");
+  $("education").innerHTML = data.education.map((ed) => `
+    <div class="job">
+      <div class="period">${esc(ed.period)}</div>
+      <h3>${esc(ed.qualification)}</h3>
+      <div class="org">${esc(ed.org)}</div>
+    </div>`).join("");
+  $("skills").innerHTML = data.skills.map((g) => `
+    <div class="skill-group"><h4>${esc(g.group)}</h4>
+      <div class="tags">${g.items.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+    </div>`).join("");
+
+  // Tabs (synced to the URL hash so sections can be linked directly)
+  const tabs = ["now", "projects", "cv"];
+  function showTab(name) {
+    tabs.forEach((t) => {
+      $(t).hidden = t !== name;
+      $("tab-" + t).setAttribute("aria-selected", t === name);
+    });
+  }
+  tabs.forEach((t) => $("tab-" + t).addEventListener("click", () => { location.hash = t; }));
+
+  // Project detail dialog, loaded from the Markdown write-up
+  const dlg = $("dlg");
+  async function openProject(slug) {
+    $("dlg-body").innerHTML = `<p class="empty">Loading…</p>`;
+    if (!dlg.open) dlg.showModal();
+    try {
+      const res = await fetch(`projects/${encodeURIComponent(slug)}.md`, { cache: "no-cache" });
+      if (!res.ok) throw new Error(res.status);
+      $("dlg-body").innerHTML = md(await res.text());
+    } catch (e) {
+      $("dlg-body").innerHTML = `<p class="empty">This write-up could not be loaded.</p>`;
+    }
+  }
+  dlg.addEventListener("close", () => {
+    if (location.hash.startsWith("#project/")) {
+      history.replaceState(null, "", "#projects");
+      showTab("projects");
+    }
+  });
+  $("dlg-close").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-slug]");
+    if (el) location.hash = "project/" + el.dataset.slug;
+  });
+  document.addEventListener("keydown", (e) => {
+    const el = e.target.closest && e.target.closest(".now-item");
+    if (el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); location.hash = "project/" + el.dataset.slug; }
+  });
+
+  function route() {
+    const h = location.hash.slice(1);
+    if (h.startsWith("project/")) {
+      showTab("projects");
+      openProject(h.slice(8));
+    } else {
+      if (dlg.open) dlg.close();
+      showTab(tabs.includes(h) ? h : "now");
+    }
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
