@@ -6,7 +6,7 @@
     "company": "Grinaker Technologies",
     "location": "KwaZulu-Natal, South Africa · EU citizen",
     "summary": "Software engineering leader with 10+ years designing, building and running production software across enterprise SaaS, automation, trade finance and mission-critical industrial systems. Since 2025 I've been building AI agent systems that are useful, reliable and accountable in real business operations.",
-    "email": "matt@g-techsystems.com",
+    "email": "matt@grinaker.tech",
     "linkedin": "https://www.linkedin.com/in/mk-grinaker",
     "cv": "cv/Matthew-Grinaker-CV.pdf"
   },
@@ -59,6 +59,11 @@
       "slug": "shared-second-brain",
       "headline": "Rolling out a shared second brain for the team's AI agents",
       "detail": "One place for decisions, rules, handovers and work claims, so every agent session starts from the same picture."
+    },
+    {
+      "slug": "getfit",
+      "headline": "Building GetFit, an AI health and fitness coach",
+      "detail": "One daily plan for training, nutrition, sleep, recovery and mood that adapts to how ready the body is, with every pregnancy and breastfeeding rule checked against published research."
     },
     {
       "title": "Work-life balance",
@@ -119,6 +124,24 @@
       "stack": [
         "TypeScript",
         "Claude Agent SDK"
+      ]
+    },
+    {
+      "slug": "getfit",
+      "title": "GetFit",
+      "tagline": "AI health and fitness coach: one daily plan that adapts to how ready you are.",
+      "sector": "Fitness",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "In progress",
+      "highlight": "28 pregnancy and breastfeeding rules checked against research",
+      "stack": [
+        "JavaScript",
+        "Node.js",
+        "Apple Health",
+        "NestJS",
+        "PostgreSQL",
+        "Claude"
       ]
     },
     {
