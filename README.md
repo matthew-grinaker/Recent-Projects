@@ -4,7 +4,7 @@
 
 I'm a software engineering leader with 10+ years of experience designing, building and running production software across enterprise SaaS, automation, trade finance and mission-critical industrial systems. Since 2025 I've been building AI agent systems that are useful, reliable and accountable in real business operations.
 
-### 👉 [Open the interactive portfolio](https://matthew-grinaker.github.io/Recent-Projects/) · [Download my CV](cv/Matthew-Grinaker-CV.pdf) · [matt@g-techsystems.com](mailto:matt@g-techsystems.com) · [LinkedIn](https://www.linkedin.com/in/mk-grinaker)
+### 👉 [Open the interactive portfolio](https://matthew-grinaker.github.io/Recent-Projects/) · [Download my CV](cv/Matthew-Grinaker-CV.pdf) · [matt@grinaker.tech](mailto:matt@grinaker.tech) · [LinkedIn](https://www.linkedin.com/in/mk-grinaker)
 
 ## Currently working on
 
