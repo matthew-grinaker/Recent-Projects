@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleet · Grinaker Technologies</title>
+<meta name="description" content="Fleet: one control room and one inbox for every AI agent session, on the Mac, in the cloud and in Claude projects.">
+<meta name="theme-color" content="#050505">
+<meta property="og:title" content="Fleet · Grinaker Technologies">
+<meta property="og:description" content="Fleet: one control room and one inbox for every AI agent session, on the Mac, in the cloud and in Claude projects.">
+<meta property="og:image" content="https://matthew-grinaker.github.io/Recent-Projects/assets/grinaker-share.jpg">
+<meta property="og:url" content="https://matthew-grinaker.github.io/Recent-Projects/fleet.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/grinaker-mark.png">
+<link rel="apple-touch-icon" href="assets/grinaker-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
+<style>
+/* Layout: same dark brand as the AI work page. Pull quote, "Introducing Fleet", proof stats, brain/nervous-system split, what each side gets (Live vs Next), before/after moments, CTA */
+:root {
+  color-scheme: dark;
+  --bg: #050505; --surface: #111111; --surface-2: #1a1a1a; --border: #262626; --border-strong: #3a3a3a;
+  --text: #f5f5f5; --soft: #d4d4d4; --muted: #a3a3a3; --faint: #8a8a8a;
+  --accent: #EF4E23; --accent-hover: #FF7A52; --accent-deep: #B22223; --live: #3ccf7a;
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1216px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.banner { background: var(--surface-2); border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+.banner .wrap { padding-block: 10px; }
+.banner b { color: var(--accent); font-weight: 500; }
+.topbar { border-bottom: 1px solid var(--border); position: sticky; top: env(safe-area-inset-top, 0px); background: rgba(5,5,5,.92); backdrop-filter: blur(10px); z-index: 5; }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 500; }
+.logo img { display: block; height: 36px; width: auto; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; }
+.tabs span { padding: 8px 16px; border-radius: 999px; font-size: 15px; color: var(--soft); border: 1px solid transparent; white-space: nowrap; }
+.topbar .wrap { max-width: 1280px; padding-left: 32px; padding-right: 32px; padding-block: 16px; }
+.tabs a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 18px; border-radius: 999px; font-size: 15px; color: var(--soft); border: 1px solid transparent; text-decoration: none; white-space: nowrap; }
+.tabs a:hover { color: var(--text); }
+.tabs a.on { border-color: var(--border-strong); color: var(--text); }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tabs span.on { border-color: var(--border-strong); color: var(--text); }
+@media (max-width: 640px) { .tabs span { padding: 6px 10px; font-size: 14px; } .logo span { display: none; } }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.eyebrow { margin: 0 0 10px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.block { padding-block: 72px 0; }
+.block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; margin-bottom: 28px; }
+.block-head h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 300; letter-spacing: -.01em; line-height: 1.15; }
+.sub { color: var(--muted); font-size: 15px; max-width: 480px; }
+
+.quote { padding-block: 88px 0; }
+.quote h1 { font-size: clamp(40px, 6.4vw, 84px); font-weight: 300; letter-spacing: -.03em; line-height: 1.02; }
+.quote h1 em { font-style: normal; color: var(--accent); }
+.quote p { margin-top: 24px; font-size: clamp(18px, 2vw, 24px); font-weight: 300; color: var(--soft); max-width: 760px; line-height: 1.45; }
+
+.intro { margin-top: 88px; border-radius: 32px; padding: clamp(28px, 5vw, 64px); background: radial-gradient(90% 140% at 100% 100%, #b22223 0%, #ed4d23 32%, #161616 78%); display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px 48px; align-items: end; }
+.intro .eyebrow { color: #fff; opacity: .85; }
+.intro h2 { font-size: clamp(44px, 6vw, 80px); font-weight: 300; letter-spacing: -.03em; line-height: 1; color: #fff; }
+.intro p { color: #fff; font-size: 17px; line-height: 1.55; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.pill { font-size: 13px; border-radius: 999px; padding: 5px 12px; background: rgba(5,5,5,.55); border: 1px solid rgba(255,255,255,.35); color: #fff; }
+@media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
+.stat b { font-size: clamp(32px, 3.4vw, 44px); font-weight: 300; letter-spacing: -.02em; line-height: 1.1; }
+.stat span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+@media (max-width: 760px) { .stats { grid-template-columns: 1fr; } }
+
+.split { display: grid; grid-template-columns: minmax(0,1fr) 170px minmax(0,1fr); align-items: stretch; }
+.side { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.side.fleet { border-color: rgba(239,78,35,.55); }
+.side .title { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.side .title h3 { font-size: 22px; font-weight: 500; }
+.side .title span { font-size: 13px; color: var(--muted); }
+.organ { background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; display: grid; gap: 2px; }
+.organ b { font-weight: 500; font-size: 15px; }
+.organ span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.wire { display: flex; flex-direction: column; justify-content: center; gap: 32px; padding: 0 12px; }
+.flow { font-size: 12px; line-height: 1.4; color: var(--muted); text-align: center; display: grid; gap: 8px; }
+.flow .line { height: 2px; position: relative; }
+.flow.l .line { background: linear-gradient(270deg, var(--border-strong), var(--accent)); }
+.flow.r .line { background: linear-gradient(90deg, var(--border-strong), var(--accent)); }
+.flow.l .line::before, .flow.r .line::after { content: ""; position: absolute; top: -4px; border: 5px solid transparent; }
+.flow.l .line::before { left: -4px; border-right-color: var(--accent); }
+.flow.r .line::after { right: -4px; border-left-color: var(--accent); }
+.flow .arr { display: none; }
+@media (max-width: 860px) {
+  .split { grid-template-columns: 1fr; }
+  .wire { flex-direction: row; padding: 16px 0; gap: 16px; }
+  .flow { flex: 1; }
+  .flow .line { display: none; }
+  .flow .arr { display: block; color: var(--accent); font-size: 18px; }
+}
+
+.gives { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+.give { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 28px; }
+.give h3 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+.give ul { list-style: none; margin: 0; padding: 0; }
+.give li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-top: 1px solid var(--border); }
+.give li b { font-weight: 500; }
+.give li p { grid-column: 1 / -1; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.badge { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; border-radius: 999px; padding: 2px 9px; align-self: start; white-space: nowrap; }
+.badge.live { color: var(--live); border: 1px solid rgba(60,207,122,.5); }
+.badge.next { color: var(--faint); border: 1px solid var(--border-strong); }
+.key { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; font-size: 13px; color: var(--muted); align-items: center; }
+@media (max-width: 860px) { .gives { grid-template-columns: 1fr; } }
+
+.moments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.moment { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 28px; display: grid; gap: 14px; align-content: start; }
+.moment h3 { font-size: 19px; font-weight: 500; }
+.row { display: grid; grid-template-columns: 82px 1fr; gap: 12px; font-size: 15px; }
+.row .t { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; color: var(--faint); padding-top: 3px; }
+.row.now .t { color: var(--accent); }
+.row span:last-child { color: var(--soft); }
+.row:not(.now) span:last-child { color: var(--muted); }
+@media (max-width: 860px) { .moments { grid-template-columns: 1fr; } }
+
+.cta { margin-block: 72px; border-radius: 28px; padding: clamp(28px, 5vw, 56px); background: var(--surface); border: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.cta h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 300; }
+.cta p { margin-top: 8px; color: var(--muted); max-width: 560px; }
+.cta .links { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta a { text-decoration: none; border-radius: 999px; padding: 12px 24px; font-weight: 500; border: 1px solid var(--border-strong); color: var(--text); }
+.cta a.mail { background: #fff; border-color: #fff; color: #050505; }
+.cta a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .topbar .wrap { flex-wrap: wrap; gap: 10px; padding: 12px 16px 10px; }
+  .logo img { height: 30px; }
+  .tabs { width: 100%; overflow-x: auto; }
+  .tabs a { flex: 1; padding: 8px 4px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="index.html#now" aria-label="Grinaker Technologies, back to Now"><img src="assets/grinaker-logo.png" alt="Grinaker" width="407" height="120"></a>
+  <nav class="tabs" aria-label="Sections"><a href="index.html#now">Now</a><a href="index.html#projects">Projects</a><a href="ai-work.html">AI work</a><a href="fleet.html" aria-current="page" class="on">Fleet</a><a href="index.html#cv">CV</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="quote">
+    <h1>Agents scale. <em>You don't.</em></h1>
+    <p>The limit is no longer compute. It's one person's attention, trust and memory spread across a dozen agents.</p>
+  </section>
+
+  <section class="intro" aria-labelledby="intro-h">
+    <div>
+      <p class="eyebrow">Introducing</p>
+      <h2 id="intro-h">Fleet</h2>
+      <div class="pills"><span class="pill">In daily use</span><span class="pill">Built by Grinaker Technologies</span><span class="pill">Mac, cloud and Claude projects</span></div>
+    </div>
+    <p>A control room for AI agents. One page and one inbox for every Claude session on my Mac, in the cloud and in Claude projects (beta), so one person can run many agents, answer them from anywhere, and never lose what they made.</p>
+  </section>
+
+  <section class="block" aria-label="Fleet in numbers">
+    <div class="stats">
+      <div class="stat"><b>24</b><span>sessions supervised in one day at my peak (6 Oct 2026)</span></div>
+      <div class="stat"><b>3 in 1</b><span>local sessions, cloud sessions and project threads in one view and one inbox</span></div>
+      <div class="stat"><b>5</b><span>tools that let any Claude session list, read and message the others, see what needs me, and find what was made</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">Division of labour</p><h2>Claude is the brain. Fleet is the nervous system.</h2></div>
+      <p class="sub">Fleet doesn't rebuild what Claude already does well. It owns what the cloud can't reach: my machine, my attention and where I am.</p>
+    </div>
+    <div class="split">
+      <div class="side">
+        <div class="title"><h3>Claude</h3><span>in the cloud</span></div>
+        <div class="organ"><b>Project memory and knowledge</b><span>Files, memory, decisions, artifacts</span></div>
+        <div class="organ"><b>Coordinator and threads</b><span>Plans the work, starts threads, asks for decisions</span></div>
+        <div class="organ"><b>Skills, rules and agents</b><span>CLAUDE.md, skills, subagents, plugins</span></div>
+        <div class="organ"><b>Reasoning</b><span>Summaries, triage, drafted answers, code</span></div>
+      </div>
+      <div class="wire" aria-hidden="true">
+        <div class="flow l"><span class="arr">↑</span>events, outcomes, my presence, local context<div class="line"></div></div>
+        <div class="flow r"><span class="arr">↓</span>tasks, decisions to route, rules to enforce, triage<div class="line"></div></div>
+      </div>
+      <div class="side fleet">
+        <div class="title"><h3>Fleet</h3><span>on my Mac</span></div>
+        <div class="organ"><b>Senses</b><span>Every local session and its sub-agents, cloud sessions, project threads, and what each one needs</span></div>
+        <div class="organ"><b>Reflexes</b><span>Flags whether each waiting action can be undone; a policy gate for routine approvals is next</span></div>
+        <div class="organ"><b>Hands</b><span>Message any session, reply to or resolve a thread, open a terminal in its folder</span></div>
+        <div class="organ"><b>Cockpit</b><span>One decision inbox on Mac, phone and Slack, with quiet hours</span></div>
+      </div>
+    </div>
+    <div class="gives">
+      <div class="give"><h3>What Claude gets from Fleet</h3><ul><li><b>Eyes on my machine</b><span class="badge live">Live</span><p>Through Fleet's tools, any Claude session on my Mac, including the coordinator, can list, read and message the others, instead of me carrying messages between them.</p></li><li><b>Fewer stalls</b><span class="badge live">Live</span><p>Questions reach me wherever I am: one ranked inbox, Mac notifications with quiet hours, Slack and my phone.</p></li><li><b>Safer autonomy</b><span class="badge next">Next</span><p>A local policy gate that lets reversible actions through and holds the irreversible ones for me, so sessions can run unattended for longer.</p></li><li><b>A feedback loop</b><span class="badge next">Next</span><p>Repeated corrections and approvals turned into proposed rules, skills and allow rules, written back into Claude.</p></li><li><b>Better use of my plan</b><span class="badge next">Next</span><p>Background work paced around the five-hour limit instead of every session hitting it at once.</p></li></ul></div>
+      <div class="give"><h3>What Fleet gets from Claude</h3><ul><li><b>Intelligence</b><span class="badge live">Live</span><p>On request, a small Claude model reads what a session is waiting on and drafts the likely answer with its confidence. It is only ever shown to me, and Fleet never sends it on its own.</p></li><li><b>A brain it never has to build</b><span class="badge live">Live</span><p>Memory, threads, files and decisions stay in Claude. Fleet links to them and never copies them.</p></li><li><b>Everything Claude makes, in one place</b><span class="badge live">Live</span><p>Files, artifacts and PRs from every session on my Mac in one library, with documents saved into the project's OUTPUTS folder.</p></li><li><b>Distribution</b><span class="badge live">Live</span><p>Fleet ships as a Claude Code plugin with an MCP server and a skill. Hooks and a status line come next.</p></li><li><b>A source of work</b><span class="badge next">Next</span><p>The coordinator hands tasks to workers on my Mac through Fleet.</p></li></ul></div>
+    </div>
+    <div class="key"><span class="badge live">Live</span>in daily use today <span class="badge next">Next</span>on the roadmap</div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">Why it matters</p><h2>What changes day to day</h2></div>
+      <p class="sub">Every minute an agent waits on me is agent time lost. Fleet is built to cut it.</p>
+    </div>
+    <div class="moments"><article class="moment"><h3>An agent needs an answer while I'm away</h3><div class="row"><span class="t">Before</span><span>The question waits on a screen nobody is looking at, and every agent behind it waits too.</span></div><div class="row now"><span class="t">With Fleet</span><span>It reaches me in Slack or on my phone, ranked by how much agent time it is holding up, and I answer it there.</span></div></article><article class="moment"><h3>Sessions need to coordinate</h3><div class="row"><span class="t">Before</span><span>I copy context from one terminal to another and act as the go-between.</span></div><div class="row now"><span class="t">With Fleet</span><span>Sessions ask Fleet what else is running in the repo and message each other directly.</span></div></article><article class="moment"><h3>Work runs in three places</h3><div class="row"><span class="t">Before</span><span>Local sessions, cloud sessions and project threads each live in a different window.</span></div><div class="row now"><span class="t">With Fleet</span><span>One view and one inbox cover all three, with project threads grouped by project beside their checklist.</span></div></article><article class="moment"><h3>A session finishes in the cloud or a scratchpad</h3><div class="row"><span class="t">Before</span><span>Documents are lost when the container is reclaimed, unless I remember to copy them.</span></div><div class="row now"><span class="t">With Fleet</span><span>Every output shows in Fleet's library, and documents are saved into the project's folder.</span></div></article></div>
+  </section>
+
+  <section class="cta">
+    <div><h2>Running more agents than you can watch?</h2><p>I build the harness and the control room together, so a small team can supervise many agents safely.</p></div>
+    <div class="links"><a class="mail" href="mailto:matt@grinaker.tech">matt@grinaker.tech</a><a href="https://www.linkedin.com/in/mk-grinaker" target="_blank" rel="noopener">LinkedIn</a></div>
+  </section>
+</main>
+</body>
+</html>
