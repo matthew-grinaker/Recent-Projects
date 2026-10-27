@@ -23,13 +23,13 @@ _Updated 27 October 2026_
 | [Shared Second Brain](projects/shared-second-brain.md) | AI engineering | In daily use since Oct 2026 | 2026 | Live |
 | [GTech OS](projects/gtech-os.md) | AI engineering | 3 agents planned, built and reviewed a task on first run | 2026 | In progress |
 | [Claude Fleet](projects/claude-fleet.md) | AI engineering | Supervise agents from desk or Slack | 2026 | Live |
+| [Legends Gym App](projects/gym-membership-system.md) | Fitness | Paper and SMS replaced with digital contracts and controlled entry | 2026 | Live |
 | [i-Con Web Monitor](projects/icon-web-monitor.md) | Enterprise integration | Failure detection from 30+ min to under 2 | 2025 | Live |
 | [Deal Management System](projects/deal-management-system.md) | Real estate | 200+ API endpoints, all personal data encrypted | 2025 | Live |
 | [Event Finance Platform](projects/event-finance-platform.md) | Events | Targets 75% less manual reporting | 2025 | Designed |
 | [Autonomous Trading Bot](projects/autonomous-trading-bot.md) | Financial markets | 99.9% uptime, orders in under 2 s | 2025 | Live |
 | [Web3 Poker Platform](projects/web3-poker-platform.md) | Gaming | Sub-second real-time play | 2025 | Delivered |
 | [Giffy Goat Presale](projects/crypto-presale-platform.md) | Crypto | Two chains, live data, automatic stages | 2025 | Delivered |
-| [Gym Membership System](projects/gym-membership-system.md) | Fitness | Targets 90% less manual admin | 2025 | Proposal |
 
 ## About this repository
 
@@ -40,5 +40,6 @@ README.md              this page
 index.html             the interactive portfolio (GitHub Pages)
 data/portfolio.json    profile, current work, project list and CV highlights
 projects/              one short write-up per project (start from _TEMPLATE.md)
-cv/                    latest CV (PDF)
+cv/                    latest CV (PDF); drop a new one in cv/inbox/
+UPDATES.md             inbox for portfolio changes, applied by the weekly refresh
 ```
