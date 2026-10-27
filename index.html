@@ -115,7 +115,7 @@
   .now-panel .date { font-size: 12px; color: var(--muted); }
   .now-panel ul { list-style: none; margin: 0; padding: 0; }
   .now-panel li + li { border-top: 1px solid rgba(255, 255, 255, .08); }
-  .now-panel button {
+  .now-panel button, .now-panel .row {
     width: 100%; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; text-align: left; cursor: pointer;
     display: grid; grid-template-columns: 16px 1fr auto; gap: 2px 8px; align-items: baseline;
   }
@@ -154,6 +154,8 @@
     transition: border-color .15s, transform .15s;
   }
   .now-card:hover, .now-card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .now-card.static { cursor: default; }
+  .now-card.static:hover { border-color: var(--border); transform: none; }
   .now-card .art { aspect-ratio: 16 / 7; background: var(--glow); display: flex; align-items: flex-end; padding: 20px; }
   .now-card.featured .art { aspect-ratio: 16 / 6; background: linear-gradient(180deg, rgba(5,5,5,0) 40%, rgba(5,5,5,.6) 100%), #1a1a1a url("assets/grinaker-texture.jpg") center 30% / cover no-repeat; }
   .now-card .art .tag-chip { font-size: 13px; color: #fff; background: rgba(5, 5, 5, .55); border-radius: 999px; padding: 6px 14px; }
@@ -507,11 +509,12 @@
       <div class="head"><span class="label">Now</span><span class="date">Updated ${esc(fmtDate(data.updated))}</span></div>
       <ul>${data.now.map((n) => {
         const x = bySlug[n.slug] || {};
-        return `<li><button data-slug="${esc(n.slug)}">
-          <span class="dot ${statusClass(x.status || "")}" aria-hidden="true"></span>
-          <span class="t">${esc(x.title || n.headline)}</span><span class="s">${esc(x.status || "")}</span>
-          <span class="h">${esc(x.highlight || n.detail)}</span>
-        </button></li>`;
+        const status = x.status || n.status || "";
+        const inner = `
+          <span class="dot ${statusClass(status)}" aria-hidden="true"></span>
+          <span class="t">${esc(x.title || n.title || n.headline)}</span><span class="s">${esc(status)}</span>
+          <span class="h">${esc(x.highlight || n.highlight || n.detail)}</span>`;
+        return n.slug ? `<li><button data-slug="${esc(n.slug)}">${inner}</button></li>` : `<li><div class="row">${inner}</div></li>`;
       }).join("")}</ul>
       <div class="foot"><span>${liveCount} of ${data.projects.length} projects live or delivered</span><a href="#projects">All work</a></div>`;
   }
@@ -522,19 +525,23 @@
 
   // Now: current work (first item featured)
   $("updated").textContent = `Updated ${fmtDate(data.updated)}. Select an item to read the write-up.`;
+  // Items without a slug (e.g. personal focus) have no write-up, so they render as plain cards
   const nowCard = (n, featured) => {
     const x = bySlug[n.slug] || {};
-    const meta = `<div class="meta-row">${x.status ? `<span class="status ${statusClass(x.status)}">${esc(x.status)}</span>` : ""}${x.sector ? `<span>${esc(x.sector)}</span>` : ""}</div>`;
-    return `<button class="${featured ? "now-card featured" : "now-card"}" data-slug="${esc(n.slug)}">
+    const status = x.status || n.status;
+    const sector = x.sector || n.sector;
+    const meta = `<div class="meta-row">${status ? `<span class="status ${statusClass(status)}">${esc(status)}</span>` : ""}${sector ? `<span>${esc(sector)}</span>` : ""}</div>`;
+    const tag = n.slug ? "button" : "article";
+    return `<${tag} class="${featured ? "now-card featured" : "now-card"}${n.slug ? "" : " static"}"${n.slug ? ` data-slug="${esc(n.slug)}"` : ""}>
       <div class="art">${featured ? `<span class="tag-chip">${esc(x.title || "Current work")}</span>` : ""}</div>
       <div class="body">
         ${meta}
         <h3>${esc(n.headline)}</h3>
         <p>${esc(n.detail)}</p>
         ${featured && x.stack ? `<div class="tags">${x.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
-        <span class="more">Read more</span>
+        ${n.slug ? `<span class="more">Read more</span>` : ""}
       </div>
-    </button>`;
+    </${tag}>`;
   };
   $("now-list").innerHTML = data.now.length
     ? nowCard(data.now[0], true) + `<div class="now-side">${data.now.slice(1).map((n) => nowCard(n, false)).join("")}</div>`
