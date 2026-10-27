@@ -157,6 +157,7 @@
   .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
   .tile h3 { margin: 0; font-size: 18px; font-weight: 500; }
   .tile .note { margin: 0; font-size: 13px; color: var(--faint); }
+  .tile .big + .note { margin-top: -8px; }
   .big { font-size: 56px; font-weight: 300; letter-spacing: -.03em; line-height: 1; }
   .big small { font-size: 16px; color: var(--muted); letter-spacing: 0; margin-left: 8px; }
   .seg { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 3px; background: transparent; }
@@ -519,6 +520,8 @@
   data.projects.forEach((x) => { statusCounts[x.status] = (statusCounts[x.status] || 0) + 1; });
   const statusList = Object.entries(statusCounts).sort((a, b2) => b2[1] - a[1]);
   const total = data.projects.length;
+  const years = data.projects.map((x) => Number(x.year)).filter(Boolean);
+  const yearSpan = Math.min(...years) === Math.max(...years) ? String(Math.min(...years)) : `${Math.min(...years)}–${Math.max(...years)}`;
   const running = data.projects.filter((x) => statusClass(x.status) === "live").length;
   const shade = (s) => statusClass(s) === "live" && /delivered/i.test(s) ? "#2e8a57" : statusColor[statusClass(s)];
   const catCounts = {};
@@ -531,6 +534,7 @@
     <div class="tile">
       <h3>Delivery status</h3>
       <div class="big">${running}<small>of ${total} projects live or delivered</small></div>
+      <p class="note">As of ${esc(fmtDate(data.updated))} · projects from ${esc(yearSpan)}</p>
       <div class="seg" role="img" aria-label="${esc(statusList.map(([s, n]) => `${n} ${s}`).join(", "))}">
         ${statusList.map(([s, n]) => `<i style="flex:${n};background:${shade(s)}"></i>`).join("")}
       </div>
