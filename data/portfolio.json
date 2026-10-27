@@ -61,6 +61,11 @@
       "detail": "One place for decisions, rules, handovers and work claims, so every agent session starts from the same picture."
     },
     {
+      "slug": "getfit",
+      "headline": "Building GetFit, an AI health and fitness coach",
+      "detail": "One daily plan for training, nutrition, sleep, recovery and mood that adapts to how ready the body is, with every pregnancy and breastfeeding rule checked against published research."
+    },
+    {
       "title": "Work-life balance",
       "status": "Ongoing",
       "headline": "Making room for work-life balance",
@@ -119,6 +124,24 @@
       "stack": [
         "TypeScript",
         "Claude Agent SDK"
+      ]
+    },
+    {
+      "slug": "getfit",
+      "title": "GetFit",
+      "tagline": "AI health and fitness coach: one daily plan that adapts to how ready you are.",
+      "sector": "Fitness",
+      "category": "AI & Agents",
+      "year": "2026",
+      "status": "In progress",
+      "highlight": "28 pregnancy and breastfeeding rules checked against research",
+      "stack": [
+        "JavaScript",
+        "Node.js",
+        "Apple Health",
+        "NestJS",
+        "PostgreSQL",
+        "Claude"
       ]
     },
     {

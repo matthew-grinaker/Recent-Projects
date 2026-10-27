@@ -12,6 +12,7 @@ _Updated 27 October 2026_
 
 - **[StockChain](projects/stockchain.md):** a multi-interface trading platform, live with its first customer in 7 months. It covers the whole deal and trading flow, from RFQ to payment, and gives every seat at the trading table, from suppliers and logistics to investors and customers, one visible story.
 - **[Shared Second Brain](projects/shared-second-brain.md):** rolling out shared context and rules for a team's AI agents.
+- **[GetFit](projects/getfit.md):** an AI health and fitness coach whose daily plan adapts to how ready the body is.
 - **Work-life balance:** letting well-governed AI agents carry more of the routine work, to make room for family, health and rest.
 - **[Claude Fleet](projects/claude-fleet.md):** one control room for every AI agent session.
 
@@ -22,6 +23,7 @@ _Updated 27 October 2026_
 | [StockChain](projects/stockchain.md) | Trade & logistics | Live with first customer in 7 months | 2026 | Live |
 | [Shared Second Brain](projects/shared-second-brain.md) | AI engineering | In daily use since Oct 2026 | 2026 | Live |
 | [GTech OS](projects/gtech-os.md) | AI engineering | 3 agents planned, built and reviewed a task on first run | 2026 | In progress |
+| [GetFit](projects/getfit.md) | Fitness | 28 pregnancy and breastfeeding rules checked against research | 2026 | In progress |
 | [Claude Fleet](projects/claude-fleet.md) | AI engineering | Supervise agents from desk or Slack | 2026 | Live |
 | [Legends Gym App](projects/gym-membership-system.md) | Fitness | Paper and SMS replaced with digital contracts and controlled entry | 2026 | Live |
 | [i-Con Web Monitor](projects/icon-web-monitor.md) | Enterprise integration | Failure detection from 30+ min to under 2 | 2025 | Live |
