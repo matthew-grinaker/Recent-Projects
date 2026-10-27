@@ -692,6 +692,8 @@
 
   // In-page anchors inside the Now tab (hero buttons, Get in touch)
   const anchors = { "now-list": "now", contact: "now" };
+  // Old project slugs, so bookmarked links still open the renamed write-up
+  const renamed = { "claude-fleet": "fleet" };
 
   function route() {
     const h = location.hash.slice(1);
@@ -699,7 +701,9 @@
       const current = tabs.find((t) => !$(t).hidden);
       returnTab = current || "projects";
       if (!current) showTab("projects");
-      openProject(h.slice(8));
+      const slug = h.slice(8);
+      if (renamed[slug]) { history.replaceState(null, "", "#project/" + renamed[slug]); }
+      openProject(renamed[slug] || slug);
     } else if (anchors[h]) {
       if (dlg.open) dlg.close();
       showTab(anchors[h]);
