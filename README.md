@@ -13,7 +13,7 @@ _Updated 27 October 2026_
 - **[StockChain](projects/stockchain.md):** a multi-interface trading platform, live with its first customer in 7 months. It covers the whole deal and trading flow, from RFQ to payment, and gives every seat at the trading table, from suppliers and logistics to investors and customers, one visible story.
 - **[Shared Second Brain](projects/shared-second-brain.md):** rolling out shared context and rules for a team's AI agents.
 - **[GetFit](projects/getfit.md):** an AI health and fitness coach whose daily plan adapts to how ready the body is.
-- **Work-life balance:** letting well-governed AI agents carry more of the routine work, to make room for family, health and rest.
+- **Work-life balance:** letting well-governed AI agents carry more of the routine work, to make room for family, health and rest. Many sources come into one place, a shared calendar keeps work and family on one plan, and agents (Fleet included) can be used from the Claude app on my phone.
 - **[Fleet](projects/fleet.md):** one control room for every AI agent session.
 
 ## Selected work
