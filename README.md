@@ -10,7 +10,7 @@ I'm a software engineering leader with 10+ years of experience designing, buildi
 
 _Updated 27 October 2026_
 
-- **[StockChain](projects/stockchain.md):** growing a data platform for import merchants beyond its first live customer.
+- **[StockChain](projects/stockchain.md):** live with its first customer after 7 months. It runs an import merchant's whole deal flow, from RFQ to payment, across the merchant, their customer, their lender, ERPs, freight agents and FX brokers, with an AI document reader that shows the source of every value.
 - **[Shared Second Brain](projects/shared-second-brain.md):** rolling out shared context and rules for a team's AI agents.
 - **[GTech OS](projects/gtech-os.md):** building a governed multi-agent platform.
 - **[Claude Fleet](projects/claude-fleet.md):** one control room for every AI agent session.

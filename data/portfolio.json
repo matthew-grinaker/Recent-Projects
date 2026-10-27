@@ -20,7 +20,7 @@
     {
       "slug": "stockchain",
       "headline": "Growing StockChain beyond its first live customer",
-      "detail": "Data platform for import merchants: one deal flow from RFQ to payment, with an AI document reader that keeps the source of every value."
+      "detail": "Live with its first customer 7 months after the project started. StockChain runs an import merchant's whole deal flow, from RFQ to payment, and connects the merchant, their customer and their lender with ERPs, freight agents and FX brokers. Its AI document reader learns layouts from what users confirm and records the source and confidence of every value it extracts."
     },
     {
       "slug": "shared-second-brain",
