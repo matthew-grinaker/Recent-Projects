@@ -165,13 +165,19 @@
   .now-card.static { cursor: default; }
   .now-card.static:hover { border-color: var(--border); transform: none; }
   .now-card .art { aspect-ratio: 16 / 7; background: var(--glow); display: flex; align-items: flex-end; padding: 20px; }
-  .now-card.featured .art { aspect-ratio: 16 / 6; background: linear-gradient(180deg, rgba(5,5,5,0) 40%, rgba(5,5,5,.6) 100%), #1a1a1a url("assets/grinaker-texture.jpg") center 30% / cover no-repeat; }
+  .now-card.featured .art { aspect-ratio: 16 / 6; position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, rgba(5,5,5,0) 40%, rgba(5,5,5,.6) 100%); }
+  /* Same softened texture as the hero, so the featured card matches the Now panel */
+  .now-card.featured .art::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: #1a1a1a url("assets/grinaker-texture.jpg") center 30% / cover no-repeat;
+    filter: blur(14px) brightness(.75); transform: scale(1.15);
+  }
   .now-card .art .tag-chip { font-size: 13px; color: #fff; background: rgba(5, 5, 5, .55); border-radius: 999px; padding: 6px 14px; }
   .now-card .body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
   .now-card h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.3; }
   .now-card p { margin: 0; color: var(--muted); font-size: 15px; }
   .now-side { display: flex; flex-direction: column; gap: 20px; }
-  .now-side .now-card { flex-direction: row; flex: 1; }
+  .now-side .now-card { flex-direction: row; flex: 1 0 auto; }
   .now-side .now-card .art { aspect-ratio: auto; width: 10px; padding: 0; flex: none; }
   .now-side .now-card .body { padding: 22px 24px; gap: 8px; }
   .now-side .now-card h3 { font-size: 18px; }
@@ -553,8 +559,10 @@
       </div>
     </${tag}>`;
   };
-  $("now-list").innerHTML = data.now.length
-    ? nowCard(data.now[0], true) + `<div class="now-side">${data.now.slice(1).map((n) => nowCard(n, false)).join("")}</div>`
+  // Items with "card": false stay in the hero Now panel but get no card here
+  const nowCards = data.now.filter((n) => n.card !== false);
+  $("now-list").innerHTML = nowCards.length
+    ? nowCard(nowCards[0], true) + `<div class="now-side">${nowCards.slice(1).map((n) => nowCard(n, false)).join("")}</div>`
     : `<p class="empty">Nothing listed right now.</p>`;
 
   // Now: portfolio snapshot, computed from the project list
