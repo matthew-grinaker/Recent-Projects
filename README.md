@@ -23,7 +23,7 @@ _Updated 27 October 2026_
 | [StockChain](projects/stockchain.md) | Trade & logistics | Live with first customer in 7 months | 2026 | Live |
 | [Shared Second Brain](projects/shared-second-brain.md) | AI engineering | In daily use since Oct 2026 | 2026 | Live |
 | [GTech OS](projects/gtech-os.md) | AI engineering | 3 agents planned, built and reviewed a task on first run | 2026 | In progress |
-| [GetFit](projects/getfit.md) | Fitness | AI coaches that fit training, food and sleep around your everyday life | 2026 | In progress |
+| [GetFit](projects/getfit.md) | Fitness | AI coaches that fit training, food and recovery around your everyday life | 2026 | In progress |
 | [Fleet](projects/fleet.md) | AI engineering | Supervise agents from desk or Slack | 2026 | Live |
 | [Legends Gym App](projects/gym-membership-system.md) | Fitness | Paper and SMS replaced with digital contracts and controlled entry | 2026 | Live |
 | [i-Con Web Monitor](projects/icon-web-monitor.md) | Enterprise integration | Failure detection from 30+ min to under 2 | 2025 | Live |
