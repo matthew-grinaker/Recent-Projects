@@ -61,9 +61,11 @@
       "detail": "One place for decisions, rules, handovers and work claims, so every agent session starts from the same picture."
     },
     {
-      "slug": "gtech-os",
-      "headline": "Building GTech OS, a governed multi-agent platform",
-      "detail": "Agents plan, build and review work; plain code enforces budgets, approvals and safety checks."
+      "title": "Work-life balance",
+      "status": "Ongoing",
+      "headline": "Making room for work-life balance",
+      "detail": "Letting well-governed AI agents carry more of the routine work, so there's more time for family, health and rest, and better thinking when it counts.",
+      "highlight": "More time for family, health and rest"
     },
     {
       "slug": "claude-fleet",

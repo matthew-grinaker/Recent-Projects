@@ -102,17 +102,33 @@
   .actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .hero-visual {
     flex: 1 1 400px; min-width: 0; align-self: stretch; min-height: 320px; position: relative;
-    border-radius: 24px; overflow: hidden; border: 1px solid #2a2a2a;
+    border-radius: 24px; overflow: hidden; border: 1px solid #2a2a2a; padding: 20px;
+    display: flex; flex-direction: column; justify-content: flex-end;
     background: #1a1a1a url("assets/grinaker-texture.jpg") center / cover no-repeat;
   }
-  .hero-visual .badge {
-    position: absolute; left: 20px; right: 20px; bottom: 20px;
-    background: rgba(5, 5, 5, .72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, .08); border-radius: 16px; padding: 16px 18px;
+  .now-panel {
+    background: rgba(5, 5, 5, .74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .08); border-radius: 16px; padding: 18px 20px 14px;
   }
-  .badge .label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-  .badge .value { font-size: 16px; font-weight: 500; margin-top: 2px; }
-  .badge .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--live); margin-right: 8px; box-shadow: 0 0 0 4px rgba(76, 199, 127, .18); vertical-align: middle; }
+  .now-panel .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .now-panel .label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .now-panel .date { font-size: 12px; color: var(--muted); }
+  .now-panel ul { list-style: none; margin: 0; padding: 0; }
+  .now-panel li + li { border-top: 1px solid rgba(255, 255, 255, .08); }
+  .now-panel button, .now-panel .row {
+    width: 100%; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; text-align: left; cursor: pointer;
+    display: grid; grid-template-columns: 16px 1fr auto; gap: 2px 8px; align-items: baseline;
+  }
+  .now-panel button:hover .t { color: var(--accent); }
+  .now-panel .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; align-self: center; margin-left: 2px; }
+  .now-panel .dot.live { color: var(--live); box-shadow: 0 0 0 4px rgba(76, 199, 127, .18); }
+  .now-panel .dot.progress { color: var(--progress); box-shadow: 0 0 0 4px rgba(240, 166, 64, .18); }
+  .now-panel .dot.plan { color: var(--plan); }
+  .now-panel .t { font-size: 15px; font-weight: 500; }
+  .now-panel .s { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .now-panel .h { grid-column: 2 / -1; font-size: 13px; color: var(--soft); line-height: 1.45; }
+  .now-panel .foot { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, .08); font-size: 13px; color: var(--muted); }
+  .now-panel .foot a { color: var(--accent); text-decoration: none; font-weight: 500; }
 
   /* Panels */
   section.panel { padding: 8px 0 72px; }
@@ -138,6 +154,8 @@
     transition: border-color .15s, transform .15s;
   }
   .now-card:hover, .now-card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .now-card.static { cursor: default; }
+  .now-card.static:hover { border-color: var(--border); transform: none; }
   .now-card .art { aspect-ratio: 16 / 7; background: var(--glow); display: flex; align-items: flex-end; padding: 20px; }
   .now-card.featured .art { aspect-ratio: 16 / 6; background: linear-gradient(180deg, rgba(5,5,5,0) 40%, rgba(5,5,5,.6) 100%), #1a1a1a url("assets/grinaker-texture.jpg") center 30% / cover no-repeat; }
   .now-card .art .tag-chip { font-size: 13px; color: #fff; background: rgba(5, 5, 5, .55); border-radius: 999px; padding: 6px 14px; }
@@ -157,6 +175,7 @@
   .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
   .tile h3 { margin: 0; font-size: 18px; font-weight: 500; }
   .tile .note { margin: 0; font-size: 13px; color: var(--faint); }
+  .tile .big + .note { margin-top: -8px; }
   .big { font-size: 56px; font-weight: 300; letter-spacing: -.03em; line-height: 1; }
   .big small { font-size: 16px; color: var(--muted); letter-spacing: 0; margin-left: 8px; }
   .seg { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 3px; background: transparent; }
@@ -332,9 +351,9 @@
         <p class="pitch" id="pitch"></p>
         <div class="actions" id="actions"></div>
       </div>
-      <div class="hero-visual" role="img" aria-label="Grinaker brand texture">
-        <div class="badge" id="badge" hidden></div>
-      </div>
+      <aside class="hero-visual" aria-label="What I'm working on now">
+        <div class="now-panel" id="now-panel" hidden></div>
+      </aside>
     </div>
   </section>
 
@@ -482,11 +501,22 @@
     <a class="btn primary" href="#now-list">See what I'm building</a>
     <a class="btn" href="${mail}">Get in touch</a>
     <a class="btn" href="${esc(p.cv)}" download>Download CV</a>`;
-  const lead = data.now[0] && bySlug[data.now[0].slug];
-  if (lead) {
-    $("badge").hidden = false;
-    $("badge").innerHTML = `<div class="label">Now shipping</div>
-      <div class="value"><span class="live-dot" aria-hidden="true"></span>${esc(lead.title)}: ${esc(lead.highlight)}</div>`;
+  // Hero: compact live view of current work, over the brand texture
+  if (data.now.length) {
+    const liveCount = data.projects.filter((x) => statusClass(x.status) === "live").length;
+    $("now-panel").hidden = false;
+    $("now-panel").innerHTML = `
+      <div class="head"><span class="label">Now</span><span class="date">Updated ${esc(fmtDate(data.updated))}</span></div>
+      <ul>${data.now.map((n) => {
+        const x = bySlug[n.slug] || {};
+        const status = x.status || n.status || "";
+        const inner = `
+          <span class="dot ${statusClass(status)}" aria-hidden="true"></span>
+          <span class="t">${esc(x.title || n.title || n.headline)}</span><span class="s">${esc(status)}</span>
+          <span class="h">${esc(x.highlight || n.highlight || n.detail)}</span>`;
+        return n.slug ? `<li><button data-slug="${esc(n.slug)}">${inner}</button></li>` : `<li><div class="row">${inner}</div></li>`;
+      }).join("")}</ul>
+      <div class="foot"><span>${liveCount} of ${data.projects.length} projects live or delivered</span><a href="#projects">All work</a></div>`;
   }
 
   // Now: KPIs
@@ -495,19 +525,23 @@
 
   // Now: current work (first item featured)
   $("updated").textContent = `Updated ${fmtDate(data.updated)}. Select an item to read the write-up.`;
+  // Items without a slug (e.g. personal focus) have no write-up, so they render as plain cards
   const nowCard = (n, featured) => {
     const x = bySlug[n.slug] || {};
-    const meta = `<div class="meta-row">${x.status ? `<span class="status ${statusClass(x.status)}">${esc(x.status)}</span>` : ""}${x.sector ? `<span>${esc(x.sector)}</span>` : ""}</div>`;
-    return `<button class="${featured ? "now-card featured" : "now-card"}" data-slug="${esc(n.slug)}">
+    const status = x.status || n.status;
+    const sector = x.sector || n.sector;
+    const meta = `<div class="meta-row">${status ? `<span class="status ${statusClass(status)}">${esc(status)}</span>` : ""}${sector ? `<span>${esc(sector)}</span>` : ""}</div>`;
+    const tag = n.slug ? "button" : "article";
+    return `<${tag} class="${featured ? "now-card featured" : "now-card"}${n.slug ? "" : " static"}"${n.slug ? ` data-slug="${esc(n.slug)}"` : ""}>
       <div class="art">${featured ? `<span class="tag-chip">${esc(x.title || "Current work")}</span>` : ""}</div>
       <div class="body">
         ${meta}
         <h3>${esc(n.headline)}</h3>
         <p>${esc(n.detail)}</p>
         ${featured && x.stack ? `<div class="tags">${x.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
-        <span class="more">Read more</span>
+        ${n.slug ? `<span class="more">Read more</span>` : ""}
       </div>
-    </button>`;
+    </${tag}>`;
   };
   $("now-list").innerHTML = data.now.length
     ? nowCard(data.now[0], true) + `<div class="now-side">${data.now.slice(1).map((n) => nowCard(n, false)).join("")}</div>`
@@ -519,6 +553,8 @@
   data.projects.forEach((x) => { statusCounts[x.status] = (statusCounts[x.status] || 0) + 1; });
   const statusList = Object.entries(statusCounts).sort((a, b2) => b2[1] - a[1]);
   const total = data.projects.length;
+  const years = data.projects.map((x) => Number(x.year)).filter(Boolean);
+  const yearSpan = Math.min(...years) === Math.max(...years) ? String(Math.min(...years)) : `${Math.min(...years)}–${Math.max(...years)}`;
   const running = data.projects.filter((x) => statusClass(x.status) === "live").length;
   const shade = (s) => statusClass(s) === "live" && /delivered/i.test(s) ? "#2e8a57" : statusColor[statusClass(s)];
   const catCounts = {};
@@ -531,6 +567,7 @@
     <div class="tile">
       <h3>Delivery status</h3>
       <div class="big">${running}<small>of ${total} projects live or delivered</small></div>
+      <p class="note">As of ${esc(fmtDate(data.updated))} · projects from ${esc(yearSpan)}</p>
       <div class="seg" role="img" aria-label="${esc(statusList.map(([s, n]) => `${n} ${s}`).join(", "))}">
         ${statusList.map(([s, n]) => `<i style="flex:${n};background:${shade(s)}"></i>`).join("")}
       </div>

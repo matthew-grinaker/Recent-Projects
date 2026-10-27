@@ -12,7 +12,7 @@ _Updated 27 October 2026_
 
 - **[StockChain](projects/stockchain.md):** a multi-interface trading platform, live with its first customer in 7 months. It covers the whole deal and trading flow, from RFQ to payment, and gives every seat at the trading table, from suppliers and logistics to investors and customers, one visible story.
 - **[Shared Second Brain](projects/shared-second-brain.md):** rolling out shared context and rules for a team's AI agents.
-- **[GTech OS](projects/gtech-os.md):** building a governed multi-agent platform.
+- **Work-life balance:** letting well-governed AI agents carry more of the routine work, to make room for family, health and rest.
 - **[Claude Fleet](projects/claude-fleet.md):** one control room for every AI agent session.
 
 ## Selected work

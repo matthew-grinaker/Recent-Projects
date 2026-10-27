@@ -25,5 +25,5 @@ This repo is a no-code portfolio for clients, recruiters, prospects and partners
    - A finished or dropped current item: remove it from `now` and from the README "Currently working on" list.
 4. **Writing rules:** use plain business language for a non-technical reader, and lead with outcomes. Never invent metrics, clients, dates or roles. If a fact is missing, leave it out. Name a client only if Matt named it; otherwise describe it, e.g. "A South African property group". Keep `now` to at most 4 items.
 5. Set `updated` to today's date and update the "_Updated …_" line in the README. Empty the `## Pending` list in `UPDATES.md`, keeping the heading.
-6. Validate: run `python3 -m json.tool data/portfolio.json`. Every `slug` in `now` and `projects` must have a matching `projects/<slug>.md`, and every README link must resolve.
+6. Validate: run `python3 -m json.tool data/portfolio.json`. Every `slug` in `now` and `projects` must have a matching `projects/<slug>.md` (a `now` item may omit `slug` for a personal focus with no write-up; it then needs `title`, `status` and a short `highlight`), and every README link must resolve.
 7. Branch `portfolio-refresh/<YYYY-MM-DD>` from `main`, commit, push, and open one PR titled "Portfolio refresh <date>" that lists each change. Assign it to `matthew-grinaker`.
