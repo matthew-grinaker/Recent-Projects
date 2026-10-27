@@ -10,7 +10,7 @@ I'm a software engineering leader with 10+ years of experience designing, buildi
 
 _Updated 27 October 2026_
 
-- **[StockChain](projects/stockchain.md):** live with its first customer after 7 months. It runs an import merchant's whole deal flow, from RFQ to payment, across the merchant, their customer, their lender, ERPs, freight agents and FX brokers, with an AI document reader that shows the source of every value.
+- **[StockChain](projects/stockchain.md):** a multi-interface trading platform, live with its first customer in 7 months. It covers the whole deal and trading flow, from RFQ to payment, and gives every seat at the trading table, from suppliers and logistics to investors and customers, one visible story.
 - **[Shared Second Brain](projects/shared-second-brain.md):** rolling out shared context and rules for a team's AI agents.
 - **[GTech OS](projects/gtech-os.md):** building a governed multi-agent platform.
 - **[Claude Fleet](projects/claude-fleet.md):** one control room for every AI agent session.
@@ -19,7 +19,7 @@ _Updated 27 October 2026_
 
 | Project | Sector | Outcome | Year | Status |
 |---|---|---|---|---|
-| [StockChain](projects/stockchain.md) | Trade finance | Live with first customer in 7 months | 2026 | Live |
+| [StockChain](projects/stockchain.md) | Trade & logistics | Live with first customer in 7 months | 2026 | Live |
 | [Shared Second Brain](projects/shared-second-brain.md) | AI engineering | In daily use since Oct 2026 | 2026 | Live |
 | [GTech OS](projects/gtech-os.md) | AI engineering | 3 agents planned, built and reviewed a task on first run | 2026 | In progress |
 | [Claude Fleet](projects/claude-fleet.md) | AI engineering | Supervise agents from desk or Slack | 2026 | Live |

@@ -11,16 +11,28 @@
     "cv": "cv/Matthew-Grinaker-CV.pdf"
   },
   "stats": [
-    { "value": "10+", "label": "years building production software" },
-    { "value": "7 mo", "label": "from start to first live StockChain customer" },
-    { "value": "130+", "label": "PRDs delivered by my AI agent pipeline" },
-    { "value": "1,000+", "label": "IoT devices run in real time" }
+    {
+      "value": "10+",
+      "label": "years building production software"
+    },
+    {
+      "value": "7 mo",
+      "label": "from start to first live StockChain customer"
+    },
+    {
+      "value": "130+",
+      "label": "PRDs delivered by my AI agent pipeline"
+    },
+    {
+      "value": "1,000+",
+      "label": "IoT devices run in real time"
+    }
   ],
   "now": [
     {
       "slug": "stockchain",
-      "headline": "Growing StockChain beyond its first live customer",
-      "detail": "Live with its first customer 7 months after the project started. StockChain runs an import merchant's whole deal flow, from RFQ to payment, and connects the merchant, their customer and their lender with ERPs, freight agents and FX brokers. Its AI document reader learns layouts from what users confirm and records the source and confidence of every value it extracts."
+      "headline": "Growing StockChain, live with its first customer in 7 months",
+      "detail": "StockChain is a multi-interface trading platform built for traders, logistics, investors, suppliers, merchants and customers. It covers the whole deal and trading flow, from RFQ to payment, and connects every touchpoint into one visible story. Built-in intelligence streamlines operations, workflows and deal pipelines, giving insight to every seat at the trading table."
     },
     {
       "slug": "shared-second-brain",
@@ -42,13 +54,20 @@
     {
       "slug": "stockchain",
       "title": "StockChain",
-      "tagline": "Data platform for import merchants, from RFQ to payment.",
-      "sector": "Trade finance",
+      "tagline": "Multi-interface trading platform: one deal flow from RFQ to payment, for every seat at the table.",
+      "sector": "Trade & logistics",
       "category": "AI & Agents",
       "year": "2026",
       "status": "Live",
       "highlight": "Live with first customer in 7 months",
-      "stack": ["TypeScript", "Node.js", "PostgreSQL", "Redis", "React", "Docker"]
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "React",
+        "Docker"
+      ]
     },
     {
       "slug": "shared-second-brain",
@@ -59,7 +78,11 @@
       "year": "2026",
       "status": "Live",
       "highlight": "In daily use since Oct 2026",
-      "stack": ["Node.js", "GitHub", "Claude Code"]
+      "stack": [
+        "Node.js",
+        "GitHub",
+        "Claude Code"
+      ]
     },
     {
       "slug": "gtech-os",
@@ -70,7 +93,10 @@
       "year": "2026",
       "status": "In progress",
       "highlight": "3 agents planned, built and reviewed a task on first run",
-      "stack": ["TypeScript", "Claude Agent SDK"]
+      "stack": [
+        "TypeScript",
+        "Claude Agent SDK"
+      ]
     },
     {
       "slug": "claude-fleet",
@@ -81,7 +107,11 @@
       "year": "2026",
       "status": "Live",
       "highlight": "Supervise agents from desk or Slack",
-      "stack": ["Node.js", "Electron", "Slack"]
+      "stack": [
+        "Node.js",
+        "Electron",
+        "Slack"
+      ]
     },
     {
       "slug": "icon-web-monitor",
@@ -92,7 +122,13 @@
       "year": "2025",
       "status": "Live",
       "highlight": "Failure detection from 30+ min to under 2",
-      "stack": ["C#", ".NET 8", "SignalR", "React", "Redis"]
+      "stack": [
+        "C#",
+        ".NET 8",
+        "SignalR",
+        "React",
+        "Redis"
+      ]
     },
     {
       "slug": "deal-management-system",
@@ -103,7 +139,12 @@
       "year": "2025",
       "status": "Live",
       "highlight": "200+ API endpoints, all personal data encrypted",
-      "stack": ["ASP.NET Core", "SQL Server", "Angular", "Azure DevOps"]
+      "stack": [
+        "ASP.NET Core",
+        "SQL Server",
+        "Angular",
+        "Azure DevOps"
+      ]
     },
     {
       "slug": "event-finance-platform",
@@ -114,7 +155,12 @@
       "year": "2025",
       "status": "Designed",
       "highlight": "Targets 75% less manual reporting",
-      "stack": ["React", "Node.js", "PostgreSQL", "AWS"]
+      "stack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "AWS"
+      ]
     },
     {
       "slug": "autonomous-trading-bot",
@@ -125,7 +171,12 @@
       "year": "2025",
       "status": "Live",
       "highlight": "99.9% uptime, orders in under 2 s",
-      "stack": ["Python", "FastAPI", "PostgreSQL", "Docker"]
+      "stack": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "Docker"
+      ]
     },
     {
       "slug": "web3-poker-platform",
@@ -136,7 +187,12 @@
       "year": "2025",
       "status": "Delivered",
       "highlight": "Sub-second real-time play",
-      "stack": ["React", "Node.js", "Socket.IO", "Ethereum"]
+      "stack": [
+        "React",
+        "Node.js",
+        "Socket.IO",
+        "Ethereum"
+      ]
     },
     {
       "slug": "crypto-presale-platform",
@@ -147,7 +203,12 @@
       "year": "2025",
       "status": "Delivered",
       "highlight": "Two chains, live data, automatic stages",
-      "stack": ["React", "Wagmi", "RainbowKit", "Viem"]
+      "stack": [
+        "React",
+        "Wagmi",
+        "RainbowKit",
+        "Viem"
+      ]
     },
     {
       "slug": "gym-membership-system",
@@ -158,7 +219,11 @@
       "year": "2025",
       "status": "Proposal",
       "highlight": "Targets 90% less manual admin",
-      "stack": ["Web app", "WebSockets", "Tablet kiosk"]
+      "stack": [
+        "Web app",
+        "WebSockets",
+        "Tablet kiosk"
+      ]
     }
   ],
   "experience": [
@@ -202,14 +267,72 @@
     }
   ],
   "education": [
-    { "period": "2010 – 2014", "qualification": "B.Eng Computer Engineering", "org": "University of Pretoria" }
+    {
+      "period": "2010 – 2014",
+      "qualification": "B.Eng Computer Engineering",
+      "org": "University of Pretoria"
+    }
   ],
   "skills": [
-    { "group": "AI & Agents", "items": ["Claude Agent SDK", "Claude Code", "MCP servers", "Multi-agent orchestration", "Evals & graders", "Context engineering"] },
-    { "group": "Architecture", "items": ["Multi-tenant SaaS", "Event-driven design", "API-first", "Microservices"] },
-    { "group": "Languages", "items": ["C#", "TypeScript", "Python", "SQL", "C++"] },
-    { "group": "Platforms", "items": [".NET / ASP.NET Core", "Node.js", "React", "Angular", "FastAPI"] },
-    { "group": "Cloud & Data", "items": ["Azure", "Docker", "GitHub Actions", "PostgreSQL", "SQL Server", "Redis"] },
-    { "group": "Leadership", "items": ["Technical leadership", "Team management", "Agile & Scrum", "Product roadmaps"] }
+    {
+      "group": "AI & Agents",
+      "items": [
+        "Claude Agent SDK",
+        "Claude Code",
+        "MCP servers",
+        "Multi-agent orchestration",
+        "Evals & graders",
+        "Context engineering"
+      ]
+    },
+    {
+      "group": "Architecture",
+      "items": [
+        "Multi-tenant SaaS",
+        "Event-driven design",
+        "API-first",
+        "Microservices"
+      ]
+    },
+    {
+      "group": "Languages",
+      "items": [
+        "C#",
+        "TypeScript",
+        "Python",
+        "SQL",
+        "C++"
+      ]
+    },
+    {
+      "group": "Platforms",
+      "items": [
+        ".NET / ASP.NET Core",
+        "Node.js",
+        "React",
+        "Angular",
+        "FastAPI"
+      ]
+    },
+    {
+      "group": "Cloud & Data",
+      "items": [
+        "Azure",
+        "Docker",
+        "GitHub Actions",
+        "PostgreSQL",
+        "SQL Server",
+        "Redis"
+      ]
+    },
+    {
+      "group": "Leadership",
+      "items": [
+        "Technical leadership",
+        "Team management",
+        "Agile & Scrum",
+        "Product roadmaps"
+      ]
+    }
   ]
 }
