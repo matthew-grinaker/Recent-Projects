@@ -62,6 +62,7 @@
     },
     {
       "slug": "getfit",
+      "card": false,
       "headline": "Building GetFit, an AI health and fitness coach",
       "detail": "One daily plan for training, nutrition, sleep, recovery and mood that adapts to how ready the body is, with every pregnancy and breastfeeding rule checked against published research."
     },
