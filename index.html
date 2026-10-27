@@ -102,17 +102,33 @@
   .actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .hero-visual {
     flex: 1 1 400px; min-width: 0; align-self: stretch; min-height: 320px; position: relative;
-    border-radius: 24px; overflow: hidden; border: 1px solid #2a2a2a;
+    border-radius: 24px; overflow: hidden; border: 1px solid #2a2a2a; padding: 20px;
+    display: flex; flex-direction: column; justify-content: flex-end;
     background: #1a1a1a url("assets/grinaker-texture.jpg") center / cover no-repeat;
   }
-  .hero-visual .badge {
-    position: absolute; left: 20px; right: 20px; bottom: 20px;
-    background: rgba(5, 5, 5, .72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, .08); border-radius: 16px; padding: 16px 18px;
+  .now-panel {
+    background: rgba(5, 5, 5, .74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .08); border-radius: 16px; padding: 18px 20px 14px;
   }
-  .badge .label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-  .badge .value { font-size: 16px; font-weight: 500; margin-top: 2px; }
-  .badge .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--live); margin-right: 8px; box-shadow: 0 0 0 4px rgba(76, 199, 127, .18); vertical-align: middle; }
+  .now-panel .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .now-panel .label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .now-panel .date { font-size: 12px; color: var(--muted); }
+  .now-panel ul { list-style: none; margin: 0; padding: 0; }
+  .now-panel li + li { border-top: 1px solid rgba(255, 255, 255, .08); }
+  .now-panel button {
+    width: 100%; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; text-align: left; cursor: pointer;
+    display: grid; grid-template-columns: 16px 1fr auto; gap: 2px 8px; align-items: baseline;
+  }
+  .now-panel button:hover .t { color: var(--accent); }
+  .now-panel .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; align-self: center; margin-left: 2px; }
+  .now-panel .dot.live { color: var(--live); box-shadow: 0 0 0 4px rgba(76, 199, 127, .18); }
+  .now-panel .dot.progress { color: var(--progress); box-shadow: 0 0 0 4px rgba(240, 166, 64, .18); }
+  .now-panel .dot.plan { color: var(--plan); }
+  .now-panel .t { font-size: 15px; font-weight: 500; }
+  .now-panel .s { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .now-panel .h { grid-column: 2 / -1; font-size: 13px; color: var(--soft); line-height: 1.45; }
+  .now-panel .foot { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, .08); font-size: 13px; color: var(--muted); }
+  .now-panel .foot a { color: var(--accent); text-decoration: none; font-weight: 500; }
 
   /* Panels */
   section.panel { padding: 8px 0 72px; }
@@ -333,9 +349,9 @@
         <p class="pitch" id="pitch"></p>
         <div class="actions" id="actions"></div>
       </div>
-      <div class="hero-visual" role="img" aria-label="Grinaker brand texture">
-        <div class="badge" id="badge" hidden></div>
-      </div>
+      <aside class="hero-visual" aria-label="What I'm working on now">
+        <div class="now-panel" id="now-panel" hidden></div>
+      </aside>
     </div>
   </section>
 
@@ -483,11 +499,21 @@
     <a class="btn primary" href="#now-list">See what I'm building</a>
     <a class="btn" href="${mail}">Get in touch</a>
     <a class="btn" href="${esc(p.cv)}" download>Download CV</a>`;
-  const lead = data.now[0] && bySlug[data.now[0].slug];
-  if (lead) {
-    $("badge").hidden = false;
-    $("badge").innerHTML = `<div class="label">Now shipping</div>
-      <div class="value"><span class="live-dot" aria-hidden="true"></span>${esc(lead.title)}: ${esc(lead.highlight)}</div>`;
+  // Hero: compact live view of current work, over the brand texture
+  if (data.now.length) {
+    const liveCount = data.projects.filter((x) => statusClass(x.status) === "live").length;
+    $("now-panel").hidden = false;
+    $("now-panel").innerHTML = `
+      <div class="head"><span class="label">Now</span><span class="date">Updated ${esc(fmtDate(data.updated))}</span></div>
+      <ul>${data.now.map((n) => {
+        const x = bySlug[n.slug] || {};
+        return `<li><button data-slug="${esc(n.slug)}">
+          <span class="dot ${statusClass(x.status || "")}" aria-hidden="true"></span>
+          <span class="t">${esc(x.title || n.headline)}</span><span class="s">${esc(x.status || "")}</span>
+          <span class="h">${esc(x.highlight || n.detail)}</span>
+        </button></li>`;
+      }).join("")}</ul>
+      <div class="foot"><span>${liveCount} of ${data.projects.length} projects live or delivered</span><a href="#projects">All work</a></div>`;
   }
 
   // Now: KPIs
