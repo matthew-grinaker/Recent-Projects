@@ -39,6 +39,7 @@ This repository is a portfolio. It contains no source code; client names are wit
 README.md              this page
 index.html             the interactive portfolio (GitHub Pages)
 data/portfolio.json    profile, current work, project list and CV highlights
+assets/                Grinaker Technologies logo, icon and brand texture
 projects/              one short write-up per project (start from _TEMPLATE.md)
 cv/                    latest CV (PDF); drop a new one in cv/inbox/
 UPDATES.md             inbox for portfolio changes, applied by the weekly refresh
