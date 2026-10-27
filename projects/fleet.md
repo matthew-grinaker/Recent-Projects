@@ -1,4 +1,4 @@
-# Claude Fleet
+# Fleet
 
 A control room for AI coding agents: one page to see and steer every agent session, on my machine and in the cloud.
 

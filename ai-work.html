@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI work · Grinaker Technologies</title>
+<meta name="description" content="How Matthew Grinaker runs software delivery through AI agents: the orchestration harness, evals, memory, tooling and the results.">
+<meta name="theme-color" content="#050505">
+<meta property="og:title" content="AI work · Grinaker Technologies">
+<meta property="og:description" content="How Matthew Grinaker runs software delivery through AI agents: the orchestration harness, evals, memory, tooling and the results.">
+<meta property="og:image" content="https://matthew-grinaker.github.io/Recent-Projects/assets/grinaker-share.jpg">
+<meta property="og:url" content="https://matthew-grinaker.github.io/Recent-Projects/ai-work.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/grinaker-mark.png">
+<link rel="apple-touch-icon" href="assets/grinaker-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
+<style>
+/* Layout: the portfolio's own dark brand, one column of blocks: intro, stats, harness diagram, timeline, roles, tooling, decisions, value */
+:root {
+  color-scheme: dark;
+  --bg: #050505; --surface: #111111; --surface-2: #1a1a1a; --border: #262626; --border-strong: #3a3a3a;
+  --text: #f5f5f5; --soft: #d4d4d4; --muted: #a3a3a3; --faint: #8a8a8a;
+  --accent: #EF4E23; --accent-hover: #FF7A52; --accent-deep: #B22223;
+  --live: #3ccf7a; --human: #ffffff;
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --glow: radial-gradient(120% 90% at 20% 100%, #b22223 0%, #ed4d23 35%, #1a1a1a 80%);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1216px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.banner { background: var(--surface-2); border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+.banner .wrap { padding-block: 10px; }
+.banner b { color: var(--accent); font-weight: 500; }
+.topbar { border-bottom: 1px solid var(--border); position: sticky; top: env(safe-area-inset-top, 0px); background: rgba(5,5,5,.92); backdrop-filter: blur(10px); z-index: 5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 500; }
+.logo img { display: block; height: 36px; width: auto; }
+.tabs { display: flex; gap: 4px; }
+.tabs span { padding: 8px 16px; border-radius: 999px; font-size: 15px; color: var(--soft); border: 1px solid transparent; }
+.topbar .wrap { max-width: 1280px; padding-left: 32px; padding-right: 32px; padding-block: 16px; }
+.tabs a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 18px; border-radius: 999px; font-size: 15px; color: var(--soft); border: 1px solid transparent; text-decoration: none; white-space: nowrap; }
+.tabs a:hover { color: var(--text); }
+.tabs a.on { border-color: var(--border-strong); color: var(--text); }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tabs span.on { border-color: var(--border-strong); color: var(--text); }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.eyebrow { margin: 0 0 8px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.block { padding-block: 64px 0; }
+.block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; margin-bottom: 28px; }
+.block-head h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 300; letter-spacing: -.01em; line-height: 1.15; }
+.sub { margin: 0; color: var(--muted); font-size: 15px; max-width: 480px; }
+.intro { padding-block: 56px 0; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+.intro h1 { font-size: clamp(38px, 5.4vw, 68px); font-weight: 300; letter-spacing: -.02em; line-height: 1.05; }
+.intro h1 span { color: var(--accent); }
+.intro p:not(.eyebrow) { margin: 0; color: var(--soft); font-size: 17px; max-width: 520px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
+.stat b { font-size: clamp(32px, 3.4vw, 44px); font-weight: 300; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat b em { font-style: normal; color: var(--accent); }
+.stat span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+/* Diagram */
+.diagram { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 24px; }
+.scroll { overflow-x: auto; border-radius: 12px; }
+.scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.scroll svg { display: block; min-width: 1030px; width: 100%; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.hint { font-size: 13px; color: var(--faint); margin: 0 0 10px; }
+.hint[hidden] { display: none; }
+
+/* Timeline */
+.tl { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+.tl-list { list-style: none; margin: 0; padding: 0; position: relative; display: flex; flex-direction: column; }
+.tl-list::before { content: ""; position: absolute; left: 11px; top: 14px; bottom: 14px; width: 2px; background: var(--border); }
+.tl-list button {
+  position: relative; width: 100%; display: grid; grid-template-columns: 24px 1fr; gap: 0 14px; align-items: start;
+  background: none; border: 0; color: inherit; font: inherit; text-align: left; padding: 10px 12px 10px 0; cursor: pointer; border-radius: 12px;
+}
+.tl-list li.sub { position: relative; }
+.tl-list li.sub button { padding-left: 28px; }
+.tl-list li.sub::before { content: ""; position: absolute; left: 11px; top: -12px; width: 17px; height: 36px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); border-bottom-left-radius: 12px; pointer-events: none; }
+.tl-list li.sub::after { content: ""; position: absolute; left: 10px; top: 26px; bottom: 0; width: 4px; background: var(--bg); pointer-events: none; }
+.tl-tag { white-space: nowrap; display: inline-block; margin-top: 6px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; color: var(--accent); border: 1px solid rgba(239, 78, 35, .5); border-radius: 999px; padding: 2px 9px; }
+.tl-list .dot { width: 24px; height: 24px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border-strong); margin-top: 2px; display: grid; place-items: center; }
+.tl-list .dot::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
+.tl-list .when { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+.tl-list .what { display: block; font-size: 15px; color: var(--soft); line-height: 1.35; }
+.tl-list button:hover .what { color: var(--text); }
+.tl-list button[aria-selected="true"] .dot { border-color: var(--accent); }
+.tl-list button[aria-selected="true"] .dot::after { background: var(--accent); }
+.tl-list button[aria-selected="true"] .what { color: var(--text); font-weight: 500; }
+.tl-list button[aria-selected="true"] .when { color: var(--accent); }
+.tl-list button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; min-width: 0; }
+.tl-card .art { background: var(--glow); padding: 28px 32px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; min-height: 132px; }
+@media (max-width: 1020px) { .tl-card .art { min-height: 168px; } }
+@media (max-width: 480px) { .tl-card .art { min-height: 190px; } }
+.tl-card .art .when { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #fff; opacity: .85; }
+.tl-card .art .note { margin: 4px 0 0; color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .45); font-size: 15px; line-height: 1.55; max-width: 720px; }
+.tl-card .art .more { align-self: flex-start; margin-top: 6px; color: #050505; background: #fff; border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 500; text-decoration: none; }
+.tl-card .art .more:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.tl-card .art h3 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 300; line-height: 1.2; color: #fff; }
+.tl-card .body { padding: 28px 32px 32px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 24px; }
+.tl-card h4 { margin: 0 0 8px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.tl-card .body p, .tl-card .body li { margin: 0; color: var(--soft); font-size: 15px; }
+.tl-card ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.tl-card .foot { border-bottom: 1px solid var(--border); padding: 14px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--faint); }
+.tl-nav { display: flex; gap: 8px; }
+.tl-nav button { background: transparent; color: var(--text); border: 1px solid var(--border-strong); border-radius: 999px; padding: 6px 16px; font: inherit; font-size: 14px; cursor: pointer; }
+.tl-nav button:hover:not(:disabled) { border-color: var(--accent); }
+.tl-nav button:disabled { opacity: .4; cursor: default; }
+.tl-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Growth chart */
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+@media (max-width: 760px) { .kpis { grid-template-columns: 1fr 1fr; } }
+.dnote { grid-column: 1 / -1; color: var(--faint); font-size: 12px; margin: 0; }
+@media (max-width: 480px) { .kpis { grid-template-columns: 1fr; } }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cards.two { grid-template-columns: repeat(2, 1fr); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card h3 { font-size: 20px; font-weight: 500; line-height: 1.3; text-wrap: balance; text-align: center; }
+.card .role { text-align: center; }
+.card .role { font-size: 16px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card ul { margin: 0; padding-left: 18px; color: var(--soft); font-size: 15px; display: flex; flex-direction: column; gap: 6px; }
+.pillar { position: relative; overflow: hidden; padding-top: 32px; align-items: center; }
+.pillar::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent-deep), var(--accent), transparent); }
+.pi-icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--accent); background: rgba(239, 78, 35, .1); border: 1px solid rgba(239, 78, 35, .3); }
+.pillar .pi-lead { text-align: center; color: var(--muted); font-size: 15px; text-wrap: balance; }
+.pi-list { list-style: none; margin: 4px 0 0; padding: 0; width: 100%; display: flex; flex-direction: column; }
+.pi-list li { display: flex; flex-direction: column; gap: 2px; padding: 12px 0 12px 14px; border-top: 1px solid var(--border); position: relative; }
+.pi-list li::before { content: ""; position: absolute; left: 0; top: 20px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.pi-list b { color: var(--text); font-weight: 500; font-size: 15px; }
+.pi-list span { color: var(--muted); font-size: 14px; line-height: 1.55; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-size: 13px; color: var(--soft); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 12px; }
+.decisions { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; }
+.decisions li { border-top: 1px solid var(--border); padding: 18px 0; display: grid; grid-template-columns: 1fr; gap: 6px; }
+.decisions .prob { color: var(--muted); font-size: 14px; }
+.decisions .fix { color: var(--text); font-size: 16px; font-weight: 500; line-height: 1.4; }
+.decisions .eff { color: var(--soft); font-size: 14px; }
+.decisions .eff b { color: var(--accent); font-weight: 500; }
+.cta { margin-block: 64px; border-radius: 28px; padding: clamp(28px, 5vw, 56px); background: radial-gradient(70% 140% at 100% 100%, #b22223 0%, #ed4d23 30%, #161616 80%); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.cta h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 300; color: #fff; }
+.cta p { margin: 8px 0 0; color: #f2f2f2; max-width: 520px; }
+.cta .links { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta a { color: #fff; text-decoration: none; border-radius: 999px; padding: 12px 24px; font-weight: 500; border: 1px solid rgba(255,255,255,.6); background: rgba(5,5,5,.7); transition: background .15s, border-color .15s; }
+.cta a.mail { background: #fff; border-color: #fff; color: #050505; }
+.cta a.mail:hover { background: #ececec; border-color: #ececec; }
+.cta a:not(.mail):hover { border-color: #fff; background: #050505; }
+.cta a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.stages { display: none; list-style: none; margin: 0 0 16px; padding: 0; counter-reset: st; }
+.stages li { counter-increment: st; display: grid; grid-template-columns: 28px 1fr; gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--border); }
+.stages li:first-child { border-top: 0; }
+.stages li::before { content: counter(st); grid-row: span 2; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); display: grid; place-items: center; font-size: 13px; }
+.stages b { font-weight: 500; font-size: 15px; }
+.stages span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+.stages .you { color: var(--text); }
+details.full summary { display: none; }
+details.full summary { cursor: pointer; color: var(--soft); font-size: 14px; padding: 8px 0; }
+details.full summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1140px) {
+  .stages { display: block; }
+  details.full summary { display: list-item; }
+}
+@media (max-width: 1020px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .tl { grid-template-columns: 1fr; }
+  .tl-list { flex-direction: row; overflow-x: auto; gap: 4px; padding: 4px 6px 6px; }
+  .tl-list::before { display: none; }
+  .tl-list li { flex: none; width: 150px; position: relative; }
+  .tl-list li::before { content: ""; position: absolute; left: 0; right: -4px; top: 22px; height: 2px; background: var(--border); }
+  .tl-list li:first-child::before { left: 12px; }
+  .tl-list li:last-child::before { right: calc(100% - 12px); }
+  .tl-list .dot { position: relative; z-index: 1; }
+  .tl-list li.sub button { padding-left: 0; }
+  .tl-list li.sub::after { display: none; }
+  .tl-tag { font-size: 10px; letter-spacing: .05em; padding: 2px 7px; }
+  .tl-list li.sub::before { left: 0; right: calc(100% - 12px); top: 22px; width: auto; height: 2px; border: 0; border-radius: 0; background: var(--border); }
+  .tl-list button { grid-template-columns: 1fr; gap: 8px; padding: 10px 8px 10px 0; }
+  .tl-list .what { font-size: 14px; }
+  .tl-list.fade-r { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  .tl-list.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%); mask-image: linear-gradient(90deg, transparent, #000 15%); }
+  .tl-list.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+}
+@media (max-width: 760px) {
+  .intro { grid-template-columns: 1fr; gap: 20px; }
+  .tl-card .body { grid-template-columns: 1fr; }
+  .decisions { grid-template-columns: 1fr; }
+  .cards, .cards.two { grid-template-columns: 1fr; }
+  .tabs span { padding: 6px 10px; font-size: 14px; }
+  .hint { display: block; }
+}
+@media (max-width: 400px) { .stats { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .tl-nav { order: -1; }
+  .tabs span:not(.on) { display: none; }
+  .stat { padding: 18px; }
+  .card, .tl-card .body { padding: 22px; }
+  .tl-card .art { padding: 22px; }
+  .tl-card .foot { padding: 14px 22px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tl-card .art, .tl-card .body { animation: rise .25s ease-out; }
+  @keyframes rise { from { transform: translateY(6px); } to { transform: none; } }
+}
+@media (max-width: 640px) {
+  .topbar .wrap { flex-wrap: wrap; gap: 10px; padding: 12px 16px 10px; }
+  .logo img { height: 30px; }
+  .tabs { width: 100%; overflow-x: auto; }
+  .tabs a { flex: 1; padding: 8px 4px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <a class="logo" href="index.html#now" aria-label="Grinaker Technologies, back to Now"><img src="assets/grinaker-logo.png" alt="Grinaker" width="407" height="120"></a>
+  <nav class="tabs" aria-label="Sections"><a href="index.html#now">Now</a><a href="index.html#projects">Projects</a><a href="ai-work.html" aria-current="page" class="on">AI work</a><a href="fleet.html">Fleet</a><a href="index.html#cv">CV</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <p class="eyebrow">AI work</p>
+      <h1>A delivery harness where <span>agents build</span> and plain code keeps them honest.</h1>
+    </div>
+    <p>Since 2025 I've built the system I use to run software delivery through AI agents. One agent coordinates, workers build, and an independent reviewer grades every ticket. Hooks enforce the rules, and I approve every plan and every release to main. AI only gets more responsibility once the evals show it can carry it.</p>
+  </section>
+
+  <section class="block" aria-label="Results">
+    <div class="stats">
+      <div class="stat"><b>130<em>+</em></b><span>PRDs delivered in parallel, each checked by an independent grader</span></div>
+      <div class="stat"><b>7 mo</b><span>to StockChain's first live customer, mostly built with this pipeline</span></div>
+      <div class="stat"><b>16<em>+</em></b><span>agents I've written for Claude Code, mirrored for Codex</span></div>
+      <div class="stat"><b>94<em>%</em></b><span>of tickets passed the grader first time (34 tickets, Oct 2026), with an average score of 94/100</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">The harness</p><h2>From PRD to merged code</h2></div>
+      <p class="sub">The flow of one run. I sign off at the steps marked in white; every other step runs unattended, inside hard limits.</p>
+    </div>
+    <div class="diagram">
+      <ol class="stages">
+        <li><b>Plan</b><span>The PRD optimiser turns an idea or SOW into PRDs. <span class="you">I approve them.</span></span></li>
+        <li><b>Coordinate</b><span>The coordinator orders tickets by dependency and writes a prompt per ticket. <span class="you">I say go.</span></span></li>
+        <li><b>Build</b><span>Headless workers, one per ticket, each in its own branch, with hooks on every step. Anything unclear comes back to me.</span></li>
+        <li><b>Review</b><span>A fresh grader with no shared context reruns the checks. Fails go back with evidence.</span></li>
+        <li><b>Integrate</b><span>Passed tickets merge into an integration branch. A goal audit turns gaps into new tickets.</span></li>
+        <li><b>Ship</b><span><span class="you">I review and merge to main.</span> CI reruns the tests and accuracy baselines, and main deploys to staging. <span class="you">I deploy to production by hand.</span> Agents can't reach staging or production. Every ticket keeps its log, cost and verdict.</span></li>
+      </ol>
+      <details class="full" id="dg-full" open><summary>See the full diagram</summary>
+      <p class="hint" id="dg-hint" hidden>Scroll sideways to see the whole flow.</p>
+      <div class="scroll" id="svg-host" tabindex="0" role="region" aria-label="Harness diagram, scrolls sideways"></div>
+      <ul class="legend">
+        <li><i style="background:#1f1f1f;border:1px solid #3a3a3a"></i>Agent or script</li>
+        <li><i style="background:#2a1209;border:1px solid #EF4E23"></i>Coordinator</li>
+        <li><i style="background:#0f0f0f;border:2px solid #ffffff"></i>My sign-off</li>
+        <li><i style="background:#0e1f15;border:1px solid #3ccf7a"></i>Independent reviewer</li>
+        <li><i style="background:#171717;border:1px dashed #5a5a5a"></i>Runs alongside every step</li>
+      </ul>
+      </details>
+
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">How it got here</p><h2>Each change, why I made it, and what it fixed</h2></div>
+      <p class="sub">Pick a step. Dates are when each piece reached its current form.</p>
+    </div>
+    <div class="tl">
+      <ol class="tl-list" id="tl-list" role="tablist" aria-label="Harness timeline"></ol>
+      <article class="tl-card" id="tl-card" role="tabpanel" tabindex="0"><div id="tl-art"></div>
+        <div class="foot"><span id="tl-src"></span><span class="tl-nav"><button type="button" id="tl-prev">Earlier</button><button type="button" id="tl-next">Later</button></span></div><div id="tl-content"></div></article>
+    </div>
+    <div class="kpis">
+      <div class="stat"><b>90% <em>→</em> 94%</b><span>tickets passing the grader first time in Sep to Oct 2026</span></div>
+      <div class="stat"><b>0.80 <em>→</em> 0.24</b><span>average retries per ticket in Sep to Oct 2026: from about 4 retries for every 5 tickets to about 1 for every 4</span></div>
+      <div class="stat"><b>4<em>×</em></b><span>lower cost per ticket in three weeks (late Sep to mid Oct 2026), from fewer tokens per ticket and fewer retries</span></div>
+      <p class="dnote">From the orchestrator's own run records: 10 graded tickets in Sep 2026, 34 in Oct 2026. Earlier runs kept no records.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">Separation of roles</p><h2>Coordinator, worker, reviewer</h2></div>
+      <p class="sub">No agent checks its own work, and no worker can change what it's judged against.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="role" style="color:var(--accent)">Coordinator</span><h3>Plans, gates and judges. Never implements.</h3>
+        <ul><li>Turns PRDs into tickets ordered by dependency.</li><li>Sets each worker's model, effort, budget and turn cap.</li><li>Writes and owns the tests. Workers can read them but never change them, because workers were caught editing tests so they would pass.</li><li>Is the only one that merges, and only into an integration branch.</li></ul></div>
+      <div class="card"><span class="role" style="color:var(--soft)">Worker</span><h3>One headless Claude Code session per ticket.</h3>
+        <ul><li>Works in its own branch and worktree, so parallel tickets never collide.</li><li>Gets the PRD, the rulings it must follow and live repo state in its prompt.</li><li>Can't reach me directly. If something is unclear it stops and returns <em>blocked</em> with a reason, and that comes back to me.</li></ul></div>
+      <div class="card"><span class="role" style="color:var(--live)">Reviewer</span><h3>A fresh reviewer every round, with no shared context.</h3>
+        <ul><li>Reruns the checks itself instead of trusting the worker's report.</li><li>Returns a structured JSON verdict, never text to grep.</li><li>Passes a ticket only when every check runs clean and every acceptance criterion is met. A separate validator agent scores 7 weighted criteria from 0 to 100, passing at 85, with 10 hard gates.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">Evals, memory, communication</p><h2>What keeps the agents on track</h2></div>
+    </div>
+    <div class="cards pillars">
+      <div class="card pillar"><span class="pi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Evals and quality gates</h3>
+        <p class="pi-lead">Every result is checked by code, never by the agent that made it.</p>
+        <ul class="pi-list"><li><b>Grader gate</b><span>Nothing merges without a pass from the grader.</span></li><li><b>Goal audit</b><span>After each run, gaps become new tickets, for up to 3 rounds. The same gap twice stops the run.</span></li><li><b>Accuracy baselines</b><span>Each document type has one, and CI fails if it drops.</span></li><li><b>Claude Pulse</b><span>Turns every verdict into a score worked out by code from weighted criteria. A failed must-have fails the run, however good the average.</span></li></ul></div>
+      <div class="card pillar"><span class="pi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3"/><path d="M20 16H7l3 3"/></svg></span><h3>Agent&#8209;to&#8209;agent communication</h3>
+        <p class="pi-lead">Structured handoffs between agents, sessions and tools.</p>
+        <ul class="pi-list"><li><b>Files and exit codes</b><span>The coordinator and workers swap a prompt in for a JSON outcome out.</span></li><li><b>Message bus</b><span>In GTech OS, agents pass work over a replayable message bus.</span></li><li><b>Second brain</b><span>Shared across sessions: decisions, handovers and time-limited work claims.</span></li><li><b>Fleet</b><span>Sessions on my machine can list, read and message each other. A message is held back while the other session has a question open.</span></li><li><b>Shared inbox</b><span>Claude Code and Codex share the same agents and a local inbox for handoffs.</span></li></ul></div>
+      <div class="card pillar"><span class="pi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M8 7h7M8 11h5"/></svg></span><h3>Memory in Obsidian</h3>
+        <p class="pi-lead">Run history and code knowledge live in one vault, so each session starts from what earlier ones learned.</p>
+        <ul class="pi-list"><li><b>Claude Pulse notes</b><span>One note per agent session: score, verdict, criteria, team and roles, with a warning when it fails. Tags make every past run searchable.</span></li><li><b>Rubrics</b><span>Vault notes written from each PRD's acceptance criteria, read back to score the next run.</span></li><li><b>graphify</b><span>Maps code and documents into a knowledge graph saved in the vault, so agents look things up instead of re-reading every file.</span></li><li><b>Context files</b><span>Every repo carries one that agents read first, alongside CLAUDE.md, architecture rulings and the shared second brain.</span></li></ul></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">My own tooling</p><h2>Skills, agents, plugins and hooks</h2></div>
+      <p class="sub">Built for Claude Code and shared across the team through the second brain.</p>
+    </div>
+    <div class="cards two">
+      <div class="card"><h3>Skills</h3><div class="tags"><span class="tag">Delivery orchestrator</span><span class="tag">Agent-ready PRD generator</span><span class="tag">Prompt optimiser</span><span class="tag">Orchestrator review</span><span class="tag">Odoo ERP client</span><span class="tag">Freight API client</span><span class="tag">Weekly client progress report</span></div></div>
+      <div class="card"><h3>Agents and Plugins</h3><div class="tags"><span class="tag">16+ agents, mirrored for Codex</span><span class="tag">Validator and grader</span><span class="tag">2 plugins with MCP tools</span><span class="tag">Odoo ERP MCP server (read-only)</span><span class="tag">Tenant PostgreSQL MCP server (read-only)</span></div></div>
+      <div class="card"><h3>Hooks</h3><div class="tags"><span class="tag">Block destructive commands</span><span class="tag">Protect main and production</span><span class="tag">Secrets guard</span><span class="tag">Typecheck on every edit</span><span class="tag">Tests must pass before stopping</span><span class="tag">Read the rulings before editing</span><span class="tag">Event log for every step</span></div></div>
+      <div class="card"><h3>Mods and Monitors</h3><div class="tags"><span class="tag">Checklist mod that shows missed steps</span><span class="tag">Fleet control room</span><span class="tag">Claude Pulse board in Obsidian</span><span class="tag">graphify knowledge graph</span><span class="tag">Answer agents from Slack</span><span class="tag">Inbox ranked by agent time held up</span><span class="tag">Cost and tokens by model and session</span><span class="tag">Daily usage report</span></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">Decisions that improved output</p><h2>Problem, decision, result</h2></div>
+    </div>
+    <ul class="decisions">
+      <li><span class="prob">Two agents undid each other's settled work.</span><span class="fix">A decision log with supersession, plus work claims an agent must hold before it changes an area.</span><span class="eff"><b>Result:</b> every session starts from the same picture.</span></li>
+      <li><span class="prob">Agents forgot architecture decisions after their context was compacted.</span><span class="fix">A hook blocks an edit until the agent has read the relevant rulings.</span><span class="eff"><b>Result:</b> settled decisions stay settled across long runs.</span></li>
+      <li><span class="prob">A worker could report success that hadn't happened.</span><span class="fix">A grader with no shared context reruns the checks and returns a JSON verdict.</span><span class="eff"><b>Result:</b> a pass means the checks passed, not that an agent said so.</span></li>
+      <li><span class="prob">A stuck session could run all weekend.</span><span class="fix">Every worker has a cap on turns, spend and wall-clock time, and the whole run has a spend cap.</span><span class="eff"><b>Result:</b> a stuck ticket hits its cap and fails, instead of running all weekend.</span></li>
+      <li><span class="prob">Prompts went stale as earlier tickets landed.</span><span class="fix">Live branch, status and recent commits are injected when each session starts.</span><span class="eff"><b>Result:</b> each worker sees the repo as it is now.</span></li>
+      <li><span class="prob">Workers were caught editing tests so they would pass.</span><span class="fix">The coordinator writes and reviews the tests. Workers get read-only access to them.</span><span class="eff"><b>Result:</b> a pass means the code met the test, not that the test was bent to fit.</span></li>
+      <li><span class="prob">A reviewer reused across loops skipped earlier tests it had already seen pass.</span><span class="fix">A new reviewer starts every round and reruns the earlier tests too.</span><span class="eff"><b>Result:</b> regressions from the next round of changes get caught.</span></li>
+      <li><span class="prob">Agents skipped steps without saying so.</span><span class="fix">A checklist mod tracks every step of a run and flags the ones that were missed.</span><span class="eff"><b>Result:</b> silent gaps become visible, along with which agents tend to skip steps.</span></li>
+      <li><span class="prob">An evaluator's score was a number you had to take on trust.</span><span class="fix">Code adds up the score from weighted, named criteria, and a failed must-have fails the run outright.</span><span class="eff"><b>Result:</b> a wrong call shows up against a named criterion, and must-haves can't be averaged away.</span></li>
+      <li><span class="prob">Agents spent their context re-reading the same code and documents.</span><span class="fix">graphify builds a knowledge graph of the code and documents and saves it in the Obsidian vault.</span><span class="eff"><b>Result:</b> agents look up what they need instead of reading everything again.</span></li>
+      <li><span class="prob">With many agents waiting, I answered whichever one I saw first.</span><span class="fix">One inbox ranks every waiting question by how long it has waited and how many agents it holds up.</span><span class="eff"><b>Result:</b> the answer that frees the most agent time comes first.</span></li>
+      <li><span class="prob">Autonomy that hadn't been earned.</span><span class="fix">AI gets more responsibility only as evals show it can carry it.</span><span class="eff"><b>Result:</b> I still approve every plan and every release to main.</span></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <div><p class="eyebrow">What this means for you</p><h2>Where it adds value</h2></div>
+    </div>
+    <div class="cards two">
+      <div class="card"><h3>Faster delivery, with control</h3><p>StockChain went live with its first customer in 7 months: about 2,700 commits and 1,100+ test files, mostly built through earlier versions of this pipeline, with me approving every plan and every release to main.</p></div>
+      <div class="card"><h3>Safe access to your systems</h3><p>Agents read live business data through read-only MCP servers (Odoo ERP, tenant-scoped PostgreSQL), get only the tools they need, a spend cap per run, and approvals that default to no.</p></div>
+      <div class="card"><h3>Visible and repeatable</h3><p>Every step is logged and replayable, cost is tracked per ticket and model, and clients get a plain-English progress report every week. The same PRD template and config run on any repo.</p></div>
+      <div class="card"><h3>Your work doesn't stall waiting on me</h3><p>Fleet gathers every question from agents on my Mac, in the cloud and in project threads into one inbox, ranked by how much agent time each one holds up, so the most costly wait gets answered first. I can answer from the Claude app, Slack or my phone, and Fleet can draft the likely answer for me to check. Agents spend less time idle, and your project keeps moving when I'm away from my desk.</p></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div><h2>Want this working in your team?</h2><p>I set up governed AI delivery for teams and products, from the first PRD to the release. I also automate and streamline the workflows and processes a business runs on, with agents taking the routine work under the same controls.</p></div>
+    <div class="links"><a class="mail" href="mailto:matt@grinaker.tech">matt@grinaker.tech</a><a href="https://www.linkedin.com/in/mk-grinaker" target="_blank" rel="noopener">LinkedIn</a></div>
+  </section>
+</main>
+
+<script>
+(() => {
+  // Harness diagram, laid out on a column grid
+  const W = 1180, H = 560, colW = 160, pitch = 200, x0 = 12;
+  const cx = (c) => x0 + c * pitch;
+  const kinds = {
+    step:  { fill: "#1f1f1f", stroke: "#3a3a3a", sw: 1, title: "#f5f5f5" },
+    coord: { fill: "#2a1209", stroke: "#EF4E23", sw: 1, title: "#ffffff" },
+    human: { fill: "#0f0f0f", stroke: "#ffffff", sw: 2, title: "#ffffff" },
+    review:{ fill: "#0e1f15", stroke: "#3ccf7a", sw: 1, title: "#ffffff" },
+  };
+  const cols = [
+    [["idea", "step", "Idea, SOW or plan", ["What the business", "needs"]],
+     ["prd", "step", "PRD optimiser", ["Scope in and out", "Do-not-touch list", "Test specs and", "dependencies"]],
+     ["ok1", "human", "I approve", ["The PRDs and the", "frozen goal"]]],
+    [["plan", "coord", "Coordinator plans", ["Tickets ordered by", "dependency", "Model, effort,", "budget and turn", "cap per ticket"]],
+     ["prompt", "step", "Prompt per ticket", ["PRD, rulings,", "CLAUDE.md and the", "tests to pass"]],
+     ["ok2", "human", "I say go", []]],
+    [["work", "step", "Workers", ["Headless Claude", "Code, one per", "ticket, in parallel,", "own branch and", "worktree. Blocked?", "Back to me."]],
+     ["hooks", "step", "Hooks on each step", ["Guard: destructive", "commands, secrets", "Typecheck per edit", "Tests must pass", "before it stops"]]],
+    [["grade", "review", "Grader", ["Fresh every round", "No shared context", "Reruns the checks", "Every acceptance", "criterion met", "JSON verdict"]]],
+    [["merge", "coord", "Merge", ["The coordinator", "merges passed", "tickets into the", "integration branch"]],
+     ["audit", "review", "Goal audit", ["Checks the frozen", "goal; gaps become", "new tickets, up to", "3 rounds"]]],
+    [["ok3", "human", "I review", ["and merge the", "integration", "branch to main"]],
+     ["out", "step", "CI/CD", ["CI reruns the tests", "and accuracy", "baselines before", "deploying.", "Agents can't reach", "staging or prod"]]],
+  ];
+  const nodes = [];
+  cols.forEach((col, c) => {
+    let y = 64;
+    col.forEach(([id, k, t, sub]) => {
+      const h = sub.length ? 46 + sub.length * 18 : 52;
+      nodes.push({ id, c, y, h, k, t, s: sub });
+      y += h + 30;
+    });
+  });
+  const by = Object.fromEntries(nodes.map((n) => [n.id, n]));
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const box = (n) => {
+    const k = kinds[n.k], x = cx(n.c);
+    const lines = n.s.map((l, i) => `<text x="${x + 14}" y="${n.y + 50 + i * 18}" font-size="12.5" fill="#bdbdbd">${esc(l)}</text>`).join("");
+    return `<rect x="${x}" y="${n.y}" width="${colW}" height="${n.h}" rx="12" fill="${k.fill}" stroke="${k.stroke}" stroke-width="${k.sw}"/>
+      <text x="${x + 14}" y="${n.y + (n.s.length ? 28 : 32)}" font-size="14" font-weight="500" fill="${k.title}">${esc(n.t)}</text>${lines}`;
+  };
+  const midY = (n) => n.y + n.h / 2;
+  const top = (n) => [cx(n.c) + colW / 2, n.y];
+  const bot = (n) => [cx(n.c) + colW / 2, n.y + n.h];
+  const R = (n) => cx(n.c) + colW, L = (n) => cx(n.c);
+  const mk = { "#8a8a8a": "", "#EF4E23": "o", "#3ccf7a": "g", "#ffffff": "w" };
+  const path = (pts, label, lx, ly, color = "#8a8a8a", dash = "") =>
+    `<path d="M${pts.map((p) => p.join(",")).join(" L")}" fill="none" stroke="${color}" stroke-width="1.5" ${dash ? `stroke-dasharray="${dash}"` : ""} marker-end="url(#ah${mk[color]})"/>` +
+    (label ? `<text x="${lx}" y="${ly}" font-size="11.5" fill="${color === "#8a8a8a" ? "#a3a3a3" : color}">${esc(label)}</text>` : "");
+  const v = (a, b, dash) => path([bot(a), top(b)], "", 0, 0, "#8a8a8a", dash);
+  const gx = (c, f) => cx(c) + colW + 40 * f;  // x inside the gap right of column c
+  const arrows = [
+    v(by.idea, by.prd), v(by.prd, by.ok1),
+    path([[R(by.ok1), midY(by.ok1)], [gx(0, .5), midY(by.ok1)], [gx(0, .5), by.plan.y + 26], [L(by.plan), by.plan.y + 26]], "", 0, 0, "#ffffff"),
+    v(by.plan, by.prompt), v(by.prompt, by.ok2),
+    path([[R(by.ok2), midY(by.ok2)], [gx(1, .15), midY(by.ok2)], [gx(1, .15), by.work.y + 26], [L(by.work), by.work.y + 26]], "", 0, 0, "#ffffff"),
+    v(by.work, by.hooks, "4 4"),
+    path([[R(by.work), by.work.y + 26], [L(by.grade), by.work.y + 26]]),
+    path([[cx(3) + colW / 2, by.grade.y + by.grade.h], [cx(3) + colW / 2, by.grade.y + by.grade.h + 26], [gx(2, .5), by.grade.y + by.grade.h + 26], [gx(2, .5), by.work.y + by.work.h - 24], [R(by.work), by.work.y + by.work.h - 24]],
+      "fail: retry with evidence", cx(3) - 6, by.grade.y + by.grade.h + 44, "#EF4E23"),
+    path([[R(by.grade), by.grade.y + 26], [L(by.merge), by.grade.y + 26]], "pass", R(by.grade) + 6, by.grade.y + 18, "#3ccf7a"),
+    v(by.merge, by.audit),
+    path([bot(by.audit), [cx(4) + colW / 2, 432], [gx(1, .85), 432], [gx(1, .85), by.plan.y + by.plan.h - 22], [R(by.plan), by.plan.y + by.plan.h - 22]],
+      "gaps become new tickets (up to 3 rounds)", cx(2) + 10, 424, "#EF4E23", "5 4"),
+    path([[R(by.audit), midY(by.audit)], [gx(4, .5), midY(by.audit)], [gx(4, .5), by.ok3.y + 26], [L(by.ok3), by.ok3.y + 26]], "", 0, 0, "#3ccf7a"),
+    v(by.ok3, by.out),
+  ];
+  const lanes = ["Plan", "Coordinate", "Build", "Review", "Integrate", "Ship"].map((l, i) =>
+    `<text x="${cx(i)}" y="38" font-size="12" letter-spacing="2.4" font-weight="500" fill="#EF4E23">${l.toUpperCase()}</text>`).join("");
+  const band = (y, title, text) => `<rect x="${x0}" y="${y}" width="${W - 2 * x0}" height="44" rx="10" fill="#171717" stroke="#5a5a5a" stroke-dasharray="4 4"/>
+    <text x="${x0 + 16}" y="${y + 27}" font-size="13" font-weight="500" fill="#f5f5f5">${title}</text>
+    <text x="${x0 + 200}" y="${y + 27}" font-size="12.5" fill="#bdbdbd">${esc(text)}</text>`;
+  const marker = (id, c) => `<marker id="ah${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${c}"/></marker>`;
+  document.getElementById("svg-host").innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="dg-t dg-d" font-family="Poppins, system-ui, sans-serif">
+      <title id="dg-t">The delivery harness, from PRD to merged code</title>
+      <desc id="dg-d">An idea becomes PRDs through the PRD optimiser, which I approve. The coordinator orders tickets by dependency and builds a prompt per ticket; I say go. Workers build in parallel under hooks. An independent grader with no shared context returns a JSON verdict: fails go back with evidence, passes are merged by the coordinator into an integration branch. A goal audit sends gaps back to the coordinator as new tickets, for up to three rounds. I review the integration branch and merge it to main. Memory lives in per-repo context files, architecture rulings, the shared second brain and an Obsidian vault; Claude Pulse and Fleet watch every run.</desc>
+      <defs>${marker("", "#8a8a8a")}${marker("o", "#EF4E23")}${marker("g", "#3ccf7a")}${marker("w", "#ffffff")}</defs>
+      ${lanes}
+      ${arrows.join("")}
+      ${nodes.map(box).join("")}
+      ${band(456, "Memory and context", "Context file and CLAUDE.md per repo · architecture rulings · shared second brain · Obsidian vault: run notes, rubrics, graphify graph")}
+      ${band(508, "Watching every run", "Fleet: monitor and steer every session · Checklist of missed steps · Claude Pulse scores · JSONL event log · Slack alerts · cost per ticket")}
+    </svg>`;
+
+  // Timeline
+  const steps = [
+    { when: "2025", title: "First agent systems", short: "First agent systems",
+      what: ["Started building with the Claude Agent SDK, MCP and governed tool calling.", "Put AI into software delivery and document work."],
+      why: "To make AI useful in real business operations, not demos.",
+      diff: "Set the rule everything since follows: AI gets more responsibility only as evals show it can carry it.",
+      src: "CV" },
+    { when: "Mar 2026", title: "PRDs written for agents", short: "Agent-ready PRDs",
+      what: ["A PRD template made for AI agents: scope in and out, a do-not-touch list, key files, API contracts, test specs and dependencies.", "One PRD is one unit that can be tested on its own."],
+      why: "Agents given vague specs changed code outside their task.",
+      diff: "Each PRD is clear enough for an agent to build and for tooling to parse into tickets.",
+      src: "PRD generator skill" },
+    { when: "Mar 2026", title: "First orchestrator", short: "First orchestrator",
+      what: ["PRDs turned into Linear issues and a dependency graph.", "Each ticket ran as its own headless Claude Code session, with 3 retries."],
+      why: "To run a whole backlog in order without hand-feeding every ticket.",
+      diff: "The only human gate became approving the PRDs.",
+      src: "First orchestrator skill" },
+    { when: "May 2026", title: "Agents get business context", short: "Business context",
+      what: ["Read-only clients for the Odoo ERP and a freight forwarder's API.", "Later, read-only MCP servers over ERP data and tenant-scoped PostgreSQL."],
+      why: "Agents need real business data, and it has to be safe to give them.",
+      diff: "Agents read live data; writes stay blocked unless deliberately switched on.",
+      src: "ERP and freight client skills, CV" },
+    { when: "Jun 2026", title: "Scores you can trace", short: "Claude Pulse",
+      what: ["A service that records every agent session from Claude Code's hooks and task files, and keeps the record even when Claude clears its task list.", "Each verdict is scored by code from weighted criteria in a rubric, and written as a note in the Obsidian vault."],
+      why: "A score from an evaluator agent was only as good as its word, and long unattended runs left no history to look back on.",
+      diff: "A wrong call is pinned to a named criterion, a failed must-have fails the run, and every past run can be searched in the vault.",
+      src: "Claude Pulse" },
+    { when: "Jul 2026", title: "Hooks replace the human who isn't watching", short: "Guardrail hooks",
+      what: ["Every worker runs with hooks: a guard on destructive commands and secrets, a typecheck on each edit, and a stop gate that needs tests to pass.", "One branch per ticket, merges by the orchestrator only, saved state to resume, and cost per ticket."],
+      why: "After PRD approval nobody watches the run, so the rules had to be enforced by code.",
+      diff: "Errors get fixed at edit time, a stuck ticket burns 50 turns instead of a weekend, and runs resume where they stopped.",
+      src: "Autonomous orchestrator skill" },
+    { when: "Sep 2026", title: "The pipeline reviewed like production code", short: "Pipeline audit",
+      what: ["A clinical review of my own orchestrator: a reviewer agent and a researcher agent, with every finding checked against the code.", "A prompt optimiser so every prompt states what done means and how to verify it."],
+      why: "A pipeline that ships code needs the same scrutiny as the code.",
+      diff: "It found a completion marker a worker could fake and state that lived only in the model's memory. Both are closed in today's harness.",
+      src: "Orchestrator review and prompt optimiser skills" },
+    { when: "Sep 2026", title: "Tests the workers can't bend", short: "Read-only tests, fresh reviewer",
+      what: ["The coordinator writes and reviews the tests. Workers can read them but not change them.", "A new reviewer starts every round and reruns the earlier tests too, instead of one reviewer carried across loops."],
+      why: "Workers were caught editing tests so they would pass, and a reviewer reused across loops skipped earlier tests it had already seen pass.",
+      diff: "A pass means the code met the test, and regressions from the next round of changes get caught.",
+      src: "" },
+    { when: "Oct 2026", title: "A shared second brain", short: "Shared second brain",
+      what: ["A decision log with supersession, handovers, and work claims that expire.", "The team's agents, skills, hooks and mods in one place."],
+      why: "Two agents working on the same product undid each other's settled decisions.",
+      diff: "In daily use by the StockChain team. Every session starts from the same picture.",
+      src: "Shared Second Brain write-up" },
+    { when: "Oct 2026", title: "No silent skipped steps", short: "Checklist mod",
+      what: ["A checklist mod tracks every step of a run and flags any step an agent skipped without reporting it."],
+      why: "Agents sometimes skipped steps without saying so, and nothing showed it.",
+      diff: "Silent gaps become visible, along with which agents tend to skip steps.",
+      src: "" },
+    { when: "Oct 2026", title: "Coordinator, worker, reviewer", short: "Today's harness",
+      what: ["The coordinator never builds. Workers run with pinned model, effort and budget. A fresh grader each round, with no shared context, returns a JSON verdict. Workers can only read the tests.", "Architecture rulings in every prompt, a finish gate against the baseline, and a goal audit for up to 3 rounds. I merge.", "Fleet monitors the whole run live. I can see every coordinator, worker and reviewer session and step in from my desk, Slack or my phone."],
+      why: "To let agents run long and unattended, while making every pass mean something.",
+      diff: "130+ PRDs delivered in parallel so far, each graded.",
+      src: "StockChain orchestrator skill, CV" },
+    { when: "Oct 2026", title: "Fleet: monitoring and control for the harness", short: "Fleet", tag: "Monitors the harness", link: "fleet.html",
+      note: "Claude is the brain: project memory, threads, the coordinator and the reasoning live in the cloud. Fleet is the nervous system on my Mac: it sees every session, knows what each one needs, and lets me act on any of them. It works with the new Claude projects (beta), so project threads, cloud sessions and the sessions on my Mac share one view and one inbox.",
+      what: [
+        "<b>One view of everything.</b> Every session on my Mac, with the sub-agents and headless workers it started nested underneath, plus my cloud sessions, Remote Control sessions and project threads, grouped by project beside the project's checklist.",
+        "<b>One inbox, ranked by cost.</b> Everything waiting on me is ranked by time waited × agents held up, so the answer that frees the most agent time comes first. Each item also flags whether its action can be undone: reads, tests and edits can, while pushes, deletes and deploys can't.",
+        "<b>Act from anywhere.</b> Message any session, reply to or resolve a project thread, open a terminal in its folder, or answer from Slack or my phone.",
+        "<b>Agents can see each other.</b> A Claude Code plugin gives every session fleet tools to list, read and message the others, so the coordinator checks what else is running instead of me passing messages between them.",
+        "<b>Nothing gets lost.</b> A library of every file, artifact and PR the sessions made, with documents saved into the project's OUTPUTS folder so they outlive the session."
+      ],
+      why: "Agents scale, but one person's attention doesn't. Work stalled whenever an agent needed an answer while I was away, I relayed messages between sessions by hand, and outputs left in cloud containers were lost when the session ended.",
+      diff: "One person supervises the whole harness, up to 24 sessions in a day at my peak, without being tied to a desk. The agent hours spent waiting on me are what Fleet is built to cut.",
+      src: "Fleet README and product brief" },
+  ];
+  const list = document.getElementById("tl-list"), card = document.getElementById("tl-card");
+  list.innerHTML = steps.map((s, i) => `<li role="presentation"${s.tag ? ' class="sub"' : ""}><button type="button" role="tab" id="tl-${i}" aria-selected="false" aria-controls="tl-card"><span class="dot" aria-hidden="true"></span><span><span class="when">${s.when}</span><span class="what">${s.short}</span>${s.tag ? `<span class="tl-tag">${s.tag}</span>` : ""}</span></button></li>`).join("");
+  const btns = [...list.querySelectorAll("button")];
+  const content = document.getElementById("tl-content"), prev = document.getElementById("tl-prev"), next = document.getElementById("tl-next");
+  let cur = 0;
+  function show(i, focus) {
+    const s = steps[i];
+    cur = i;
+    btns.forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
+    if (focus) btns[i].focus({ preventScroll: true });
+    // Scroll only the list itself (it scrolls sideways on narrow screens), never the page
+    const li = btns[i].parentElement;
+    if (list.scrollWidth > list.clientWidth) list.scrollTo({ left: li.offsetLeft - (list.clientWidth - li.offsetWidth) / 2, behavior: focus === undefined ? "auto" : "smooth" });
+    card.setAttribute("aria-labelledby", "tl-" + i);
+    document.getElementById("tl-art").innerHTML = `<div class="art"><span class="when">${s.when} · step ${i + 1} of ${steps.length}</span><h3>${s.title}</h3>${s.note ? `<p class="note">${s.note}</p>` : ""}${s.link ? `<a class="more" href="${s.link}">See the Fleet page →</a>` : ""}</div>`;
+    content.innerHTML = `
+      <div class="body">
+        <div><h4>What changed</h4><ul>${s.what.map((w) => `<li>${w}</li>`).join("")}</ul></div>
+        <div><h4>Why</h4><p>${s.why}</p></div>
+        <div><h4>The difference</h4><p>${s.diff}</p></div>
+      </div>`;
+    document.getElementById("tl-src").textContent = s.src ? "Source: " + s.src : "";
+    const wasPrev = document.activeElement === prev, wasNext = document.activeElement === next;
+    prev.disabled = i === 0;
+    next.disabled = i === steps.length - 1;
+    if (wasPrev && prev.disabled) next.focus();
+    if (wasNext && next.disabled) prev.focus();
+  }
+  const fades = () => {
+    const over = list.scrollWidth > list.clientWidth + 1;
+    list.classList.toggle("fade-l", over && list.scrollLeft > 4);
+    list.classList.toggle("fade-r", over && list.scrollLeft + list.clientWidth < list.scrollWidth - 4);
+  };
+  list.addEventListener("scroll", fades, { passive: true });
+  addEventListener("resize", fades);
+  prev.addEventListener("click", () => show(cur - 1, false));
+  next.addEventListener("click", () => show(cur + 1, false));
+  btns.forEach((b, i) => b.addEventListener("click", () => show(i, false)));
+  list.addEventListener("keydown", (e) => {
+    const i = btns.indexOf(document.activeElement);
+    if (i < 0) return;
+    const n = e.key === "ArrowDown" || e.key === "ArrowRight" ? i + 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? i - 1 : e.key === "Home" ? 0 : e.key === "End" ? steps.length - 1 : null;
+    if (n === null) return;
+    e.preventDefault();
+    show(Math.max(0, Math.min(steps.length - 1, n)), true);
+  });
+  show(steps.findIndex((s) => s.short === "Today's harness"));
+
+  fades();
+
+  // Diagram: hint only when it overflows; collapsed behind a summary on phones
+  const host = document.getElementById("svg-host"), hint = document.getElementById("dg-hint");
+  const fit = () => { const over = host.scrollWidth > host.clientWidth + 1; hint.hidden = !over; host.tabIndex = over ? 0 : -1; };
+  const mq = matchMedia("(max-width: 1140px)"), full = document.getElementById("dg-full");
+  full.open = !mq.matches;
+  mq.addEventListener("change", () => { full.open = !mq.matches; fit(); });
+  document.getElementById("dg-full").addEventListener("toggle", fit);
+  addEventListener("resize", fit); fit();
+})();
+</script>
+</body>
+</html>

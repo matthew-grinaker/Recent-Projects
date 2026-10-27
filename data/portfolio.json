@@ -69,11 +69,11 @@
       "title": "Work-life balance",
       "status": "Ongoing",
       "headline": "Making room for work-life balance",
-      "detail": "Letting well-governed AI agents carry more of the routine work, so there's more time for family, health and rest, and better thinking when it counts.",
+      "detail": "Letting well-governed AI agents carry more of the routine work, so there's more time for family, health and rest. Everything that needs me comes from many sources into one place, a shared calendar keeps work and family on one plan, and I can use agents from the Claude app on my phone, Fleet included.",
       "highlight": "More time for family, health and rest"
     },
     {
-      "slug": "claude-fleet",
+      "slug": "fleet",
       "headline": "Running my agent fleet from one control room",
       "detail": "See and steer every AI coding session from one page, and answer agents from Slack when away."
     }
@@ -145,8 +145,8 @@
       ]
     },
     {
-      "slug": "claude-fleet",
-      "title": "Claude Fleet",
+      "slug": "fleet",
+      "title": "Fleet",
       "tagline": "Control room for every AI agent session.",
       "sector": "AI engineering",
       "category": "AI & Agents",

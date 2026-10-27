@@ -75,6 +75,8 @@
     font: inherit; font-size: 15px; color: var(--soft); cursor: pointer;
   }
   .tabs button:hover { color: var(--text); }
+  .tabs .tab-link { display: inline-flex; align-items: center; border: 1px solid transparent; border-radius: 999px; padding: 9px 18px; min-height: 44px; font-size: 15px; color: var(--soft); text-decoration: none; white-space: nowrap; }
+  .tabs .tab-link:hover { color: var(--text); }
   .tabs button[aria-selected="true"] { color: var(--text); border-color: var(--outline); background: var(--surface); }
   .topbar .contact-btn { margin-left: 12px; }
 
@@ -307,7 +309,7 @@
     .topbar .wrap { padding-top: 12px; padding-bottom: 10px; }
     .brand img { height: 30px; }
     .tabs { width: 100%; }
-    .tabs button { flex: 1; padding: 8px 10px; }
+    .tabs button, .tabs .tab-link { flex: 1; justify-content: center; padding: 8px 4px; font-size: 14px; white-space: nowrap; }
     .hero .wrap { padding-top: 36px; gap: 32px; }
     .hero-visual { min-height: 220px; flex-basis: 100%; }
     .block { padding-top: 44px; }
@@ -335,6 +337,8 @@
         <div class="tabs" role="tablist" aria-label="Sections">
           <button role="tab" id="tab-now" aria-controls="now" aria-selected="true">Now</button>
           <button role="tab" id="tab-projects" aria-controls="projects" aria-selected="false">Projects</button>
+          <a class="tab-link" href="ai-work.html">AI work</a>
+          <a class="tab-link" href="fleet.html">Fleet</a>
           <button role="tab" id="tab-cv" aria-controls="cv" aria-selected="false">CV</button>
         </div>
         <a class="btn small contact-btn" href="#contact">Get in touch</a>
@@ -688,6 +692,8 @@
 
   // In-page anchors inside the Now tab (hero buttons, Get in touch)
   const anchors = { "now-list": "now", contact: "now" };
+  // Old project slugs, so bookmarked links still open the renamed write-up
+  const renamed = { "claude-fleet": "fleet" };
 
   function route() {
     const h = location.hash.slice(1);
@@ -695,7 +701,9 @@
       const current = tabs.find((t) => !$(t).hidden);
       returnTab = current || "projects";
       if (!current) showTab("projects");
-      openProject(h.slice(8));
+      const slug = h.slice(8);
+      if (renamed[slug]) { history.replaceState(null, "", "#project/" + renamed[slug]); }
+      openProject(renamed[slug] || slug);
     } else if (anchors[h]) {
       if (dlg.open) dlg.close();
       showTab(anchors[h]);
