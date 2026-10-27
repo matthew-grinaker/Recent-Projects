@@ -8,7 +8,12 @@
 <meta name="theme-color" content="#050505">
 <meta property="og:title" content="Matthew Grinaker · Grinaker Technologies">
 <meta property="og:description" content="Taking your ideas further. Software, tech consulting and AI work processes.">
-<meta property="og:image" content="assets/grinaker-texture.jpg">
+<meta property="og:image" content="https://matthew-grinaker.github.io/Recent-Projects/assets/grinaker-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:url" content="https://matthew-grinaker.github.io/Recent-Projects/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/grinaker-mark.png">
 <link rel="apple-touch-icon" href="assets/grinaker-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -466,6 +471,12 @@
   $("name").textContent = p.name;
   $("title").textContent = `${p.title} · ${p.company}`;
   $("pitch").textContent = b.pitch || p.summary;
+  if (b.tagline) {
+    // Last word in the accent colour, as in the brand mockup
+    const words = b.tagline.trim().split(/\s+/);
+    const last = words.pop();
+    $("tagline").innerHTML = words.length ? `${esc(words.join(" "))} <span>${esc(last)}</span>` : `<span>${esc(last)}</span>`;
+  }
   $("hero-tags").innerHTML = (b.services || []).map((s) => `<span class="pill">${esc(s.name)}</span>`).join("");
   $("actions").innerHTML = `
     <a class="btn primary" href="#now-list">See what I'm building</a>
