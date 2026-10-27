@@ -114,6 +114,22 @@
       ]
     },
     {
+      "slug": "gym-membership-system",
+      "title": "Legends Gym App",
+      "tagline": "Membership back office plus tablet check-in, live at Legends Gym.",
+      "sector": "Fitness",
+      "category": "SaaS Platforms",
+      "year": "2026",
+      "status": "Live",
+      "highlight": "Live: paper and SMS replaced with digital contracts and controlled entry",
+      "stack": [
+        "Web app",
+        "WebSockets",
+        "Tablet kiosk",
+        "Email"
+      ]
+    },
+    {
       "slug": "icon-web-monitor",
       "title": "i-Con Web Monitor",
       "tagline": "Live monitoring for a fleet of legacy integration servers.",
@@ -208,21 +224,6 @@
         "Wagmi",
         "RainbowKit",
         "Viem"
-      ]
-    },
-    {
-      "slug": "gym-membership-system",
-      "title": "Gym Membership System",
-      "tagline": "Back office plus tablet check-in for a gym.",
-      "sector": "Fitness",
-      "category": "SaaS Platforms",
-      "year": "2025",
-      "status": "Proposal",
-      "highlight": "Targets 90% less manual admin",
-      "stack": [
-        "Web app",
-        "WebSockets",
-        "Tablet kiosk"
       ]
     }
   ],
