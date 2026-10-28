@@ -94,7 +94,9 @@ p { margin: 0; }
 .seg .on { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
 .seg em { font-style: normal; color: var(--accent); font-weight: 600; }
 .seg.two { grid-template-columns: 1fr 1fr; margin: 12px 12px 0; }
-.chips { display: flex; gap: 6px; margin-top: 10px; overflow: hidden; }
+.chips { display: flex; gap: 6px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex: none; }
 .chips i { font-style: normal; color: var(--muted); margin-left: 5px; }
 .chips em { font-style: normal; color: #f0a640; font-weight: 600; margin-left: 5px; }
 .app button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
