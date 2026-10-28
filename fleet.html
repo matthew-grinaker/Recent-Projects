@@ -65,6 +65,55 @@ p { margin: 0; }
 .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 .pill { font-size: 13px; border-radius: 999px; padding: 5px 12px; background: rgba(5,5,5,.55); border: 1px solid rgba(255,255,255,.35); color: #fff; }
 @media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+/* Fleet on the phone: copy beside a framed screenshot */
+.phone { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 32px 64px; align-items: center; }
+.phone h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 300; letter-spacing: -.01em; line-height: 1.15; margin-bottom: 14px; }
+.phone ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+.phone li { padding-left: 20px; position: relative; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.phone li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.phone li b { color: var(--text); font-weight: 500; }
+.phone > * { min-width: 0; }
+.phone figure { margin: 0; justify-self: center; width: 100%; }
+.phone .frame { border-radius: 36px; padding: 10px; background: linear-gradient(160deg, #3a3a3a, #121212); border: 1px solid var(--border-strong); box-shadow: 0 30px 80px -30px rgba(239, 78, 35, .45); }
+/* Phone app screen, drawn in the site's tokens */
+.app { border-radius: 28px; overflow: hidden; background: var(--bg); padding: 0 0 14px; font-size: 12px; line-height: 1.4; color: var(--text); }
+.app p { margin: 0; }
+.app .d { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; text-decoration: none; }
+.app .d.q { background: #f0a640; } .app .d.w { background: var(--live); } .app .d.r { background: #6b9bff; }
+.app-top { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 12px 12px; border-radius: 0 0 20px 20px; }
+.app-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.app-head img { width: 28px; height: 28px; flex: none; }
+.app-head .live { display: inline-flex; align-items: center; }
+@media (max-width: 420px) { .app-head .search { display: none; } }
+.app-head b { font-size: 20px; font-weight: 500; letter-spacing: -.01em; flex: 1; }
+.app-head .live { color: var(--live); font-size: 12px; }
+.app-head .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-right: 5px; }
+.app-head .search { font-weight: 500; font-size: 12px; margin-left: 10px; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px; text-align: center; color: var(--muted); }
+.seg span { padding: 6px 0; border-radius: 999px; }
+.seg .on { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+.seg em { font-style: normal; color: var(--accent); font-weight: 600; }
+.seg.two { grid-template-columns: 1fr 1fr; margin: 12px 12px 0; }
+.chips { display: flex; gap: 6px; margin-top: 10px; overflow: hidden; }
+.chips span { white-space: nowrap; border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 9px; color: var(--soft); font-size: 11px; display: inline-flex; align-items: center; }
+.chips .on { border-color: var(--accent); color: var(--text); }
+.chips i { font-style: normal; color: var(--muted); margin-left: 5px; }
+.chips em { font-style: normal; color: #f0a640; font-weight: 600; margin-left: 5px; }
+.app-status { margin: 12px 12px 0; border: 1px solid var(--border); border-radius: 16px; padding: 10px 12px; background: var(--surface); color: var(--muted); display: grid; gap: 3px; font-size: 11px; }
+.app-status .ok { color: var(--live); margin-right: 14px; display: inline-flex; align-items: center; }
+.app-status .r { float: right; }
+.group { margin: 12px 12px 0; border: 1px solid var(--border); border-radius: 18px; padding: 10px; background: var(--surface); }
+.gh { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 0 4px 8px; }
+.gh span:last-child { letter-spacing: 0; text-transform: none; }
+.thread { border: 1px solid var(--accent); border-radius: 14px; padding: 12px; background: linear-gradient(180deg, rgba(239,78,35,.1), rgba(239,78,35,0) 70%), var(--surface-2); }
+.tt { display: flex; align-items: center; gap: 4px; }
+.tt b { font-weight: 500; font-size: 14px; flex: 1; }
+.tag { background: var(--accent); color: #fff; border-radius: 999px; padding: 2px 9px; font-size: 11px; }
+.ask { color: var(--accent-hover); margin: 6px 0 8px 13px !important; }
+.bar { height: 4px; border-radius: 4px; background: var(--border); margin-left: 13px; }
+.bar i { display: block; height: 100%; border-radius: 4px; background: var(--live); }
+.meta { color: var(--muted); font-size: 11px; margin: 8px 0 0 13px !important; }
+@media (max-width: 860px) { .phone { grid-template-columns: 1fr; } .phone figure { max-width: 420px; } }
 
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
@@ -155,6 +204,33 @@ p { margin: 0; }
       <div class="pills"><span class="pill">In daily use</span><span class="pill">Built by Grinaker Technologies</span><span class="pill">Mac, cloud and Claude projects</span></div>
     </div>
     <p>A control room for AI agents. One page and one inbox for every Claude session on my Mac, in the cloud and in Claude projects (beta), so one person can run many agents, answer them from anywhere, and never lose what they made.</p>
+  </section>
+
+  <section class="block phone" aria-labelledby="phone-h">
+    <div>
+      <p class="eyebrow">On the go</p>
+      <h2 id="phone-h">The same control room, on my phone</h2>
+      <p class="sub">When I step away from the desk, Fleet comes with me. The sessions that need me sit at the top, grouped by project or by status.</p>
+      <ul>
+        <li><b>Every session in one list.</b> 50 sessions, 2 on my Mac and 48 in the cloud.</li>
+        <li><b>What needs me first.</b> Questions are flagged and counted, so 13 waiting answers are one tap away.</li>
+        <li><b>Where each thread stands.</b> Progress, the next step and when it last moved.</li>
+      </ul>
+    </div>
+    <figure>
+      <div class="frame"><div class="app" role="img" aria-label="Fleet on a phone: tabs for Sessions, Inbox and Library, filters showing 13 sessions that need me, and a project thread asking a question.">
+        <div class="app-top">
+          <div class="app-head"><img src="assets/grinaker-mark.png" alt="" width="180" height="180"><b>Fleet</b><span class="live">Live</span><span class="search">Search</span></div>
+          <div class="seg"><span class="on">Sessions</span><span>Inbox <em>13</em></span><span>Library</span></div>
+          <div class="chips"><span class="on">All <i>50</i></span><span><s class="d q"></s>Needs you <em>13</em></span><span><s class="d w"></s>Working <i>0</i></span><span><s class="d r"></s>Ready for review <i>2</i></span></div>
+        </div>
+        <div class="app-status"><p><span class="ok"><s class="d w"></s>Live · updated 10:06</span><span class="ok">Cloud synced just now</span></p><p>50 sessions · 2 on this Mac · 48 in the cloud</p><p>Bridge up<span class="r">Notifications off</span></p></div>
+        <div class="seg two"><span>By status</span><span class="on">By project</span></div>
+        <div class="group"><p class="gh"><span>Grinaker Technologies</span><span>1 thread</span></p>
+          <div class="thread"><p class="tt"><s class="d q"></s><b>Access Fleet from my phone</b><span class="tag">Question</span></p><p class="ask">Merge PR #14, then run ./fleet.sh update</p><div class="bar"><i style="width:83%"></i></div><p class="meta">Project thread · 5/6 tasks · just now</p></div>
+        </div>
+      </div></div>
+    </figure>
   </section>
 
   <section class="block" aria-label="Fleet in numbers">
