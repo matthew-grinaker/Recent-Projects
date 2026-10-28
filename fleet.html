@@ -65,6 +65,68 @@ p { margin: 0; }
 .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 .pill { font-size: 13px; border-radius: 999px; padding: 5px 12px; background: rgba(5,5,5,.55); border: 1px solid rgba(255,255,255,.35); color: #fff; }
 @media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+/* Fleet on the phone: copy beside a framed screenshot */
+.phone { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 32px 64px; align-items: center; }
+.phone h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 300; letter-spacing: -.01em; line-height: 1.15; margin-bottom: 14px; }
+.phone ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+.phone li { padding-left: 20px; position: relative; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.phone li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.phone li b { color: var(--text); font-weight: 500; }
+.phone > * { min-width: 0; }
+.phone figure { margin: 0; justify-self: center; width: 100%; }
+.phone .frame { border-radius: 36px; padding: 10px; background: linear-gradient(160deg, #3a3a3a, #121212); border: 1px solid var(--border-strong); box-shadow: 0 30px 80px -30px rgba(239, 78, 35, .45); }
+/* Phone app screen, drawn in the site's tokens */
+.app { min-height: 470px; border-radius: 28px; overflow: hidden; background: var(--bg); padding: 0 0 14px; font-size: 12px; line-height: 1.4; color: var(--text); }
+.app p { margin: 0; }
+.app .d { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; text-decoration: none; }
+.app .d.q { background: #f0a640; } .app .d.w { background: var(--live); } .app .d.r { background: #6b9bff; }
+.app-top { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 12px 12px; border-radius: 0 0 20px 20px; }
+.app-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.app-head img { width: 28px; height: 28px; flex: none; }
+.app-head .live { display: inline-flex; align-items: center; }
+@media (max-width: 420px) { .app-head .search { display: none; } }
+.app-head b { font-size: 20px; font-weight: 500; letter-spacing: -.01em; flex: 1; }
+.app-head .live { color: var(--live); font-size: 12px; }
+.app-head .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-right: 5px; }
+.app-head .search { font-weight: 500; font-size: 12px; margin-left: 10px; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px; text-align: center; color: var(--muted); }
+.seg span, .seg button { padding: 6px 0; border-radius: 999px; border: 1px solid transparent; }
+.seg .on { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+.seg em { font-style: normal; color: var(--accent); font-weight: 600; }
+.seg.two { grid-template-columns: 1fr 1fr; margin: 12px 12px 0; }
+.chips { display: flex; gap: 6px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex: none; }
+.chips i { font-style: normal; color: var(--muted); margin-left: 5px; }
+.chips em { font-style: normal; color: #f0a640; font-weight: 600; margin-left: 5px; }
+.app button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.app button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.app [hidden] { display: none !important; }
+.chips button { white-space: nowrap; border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 9px; color: var(--soft); font-size: 11px; display: inline-flex; align-items: center; }
+.chips button.on { border-color: var(--accent); color: var(--text); }
+.app-note { color: var(--muted); font-size: 11px; margin: 12px 16px 0 !important; }
+.app-empty { color: var(--muted); text-align: center; padding: 18px 8px; margin: 0 !important; }
+.thread { display: block; cursor: pointer; }
+.reply { display: flex; gap: 6px; margin: 10px 0 0 13px; }
+.reply span { flex: 1; border: 1px solid var(--border-strong); border-radius: 999px; padding: 6px 10px; color: var(--faint); }
+.reply b { background: var(--accent); color: #fff; border-radius: 999px; padding: 6px 12px; font-weight: 500; }
+.lib { border: 1px solid var(--border-strong); border-radius: 12px; padding: 10px 12px; display: grid; gap: 2px; }
+.lib b { font-weight: 500; font-size: 13px; } .lib span { color: var(--muted); font-size: 11px; }
+.app-status { margin: 12px 12px 0; border: 1px solid var(--border); border-radius: 16px; padding: 10px 12px; background: var(--surface); color: var(--muted); display: grid; gap: 3px; font-size: 11px; }
+.app-status .ok { color: var(--live); margin-right: 14px; display: inline-flex; align-items: center; }
+.app-status .r { float: right; }
+.group { margin: 12px 12px 0; border: 1px solid var(--border); border-radius: 18px; padding: 10px; background: var(--surface); }
+.gh { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 0 4px 8px; }
+.gh span:last-child { letter-spacing: 0; text-transform: none; }
+.thread { border: 1px solid var(--accent); border-radius: 14px; padding: 12px; background: linear-gradient(180deg, rgba(239,78,35,.1), rgba(239,78,35,0) 70%), var(--surface-2); }
+.tt { display: flex; align-items: center; gap: 4px; }
+.tt b { font-weight: 500; font-size: 14px; flex: 1; }
+.tag { background: var(--accent); color: #fff; border-radius: 999px; padding: 2px 9px; font-size: 11px; }
+.ask { color: var(--accent-hover); margin: 6px 0 8px 13px !important; }
+.bar { height: 4px; border-radius: 4px; background: var(--border); margin-left: 13px; }
+.bar i { display: block; height: 100%; border-radius: 4px; background: var(--live); }
+.meta { color: var(--muted); font-size: 11px; margin: 8px 0 0 13px !important; }
+@media (max-width: 860px) { .phone { grid-template-columns: 1fr; } .phone figure { max-width: 420px; } }
 
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
@@ -157,6 +219,42 @@ p { margin: 0; }
     <p>A control room for AI agents. One page and one inbox for every Claude session on my Mac, in the cloud and in Claude projects (beta), so one person can run many agents, answer them from anywhere, and never lose what they made.</p>
   </section>
 
+  <section class="block phone" aria-labelledby="phone-h">
+    <div>
+      <p class="eyebrow">On the go</p>
+      <h2 id="phone-h">The same control room, on my phone</h2>
+      <p class="sub">When I step away from the desk, Fleet comes with me. The sessions that need me sit at the top, grouped by project or by status.</p>
+      <ul>
+        <li><b>Every session in one list.</b> 50 sessions, 2 on my Mac and 48 in the cloud.</li>
+        <li><b>What needs me first.</b> Questions are flagged and counted, so 13 waiting answers are one tap away.</li>
+        <li><b>Where each thread stands.</b> Progress, the next step and when it last moved.</li>
+      </ul>
+    </div>
+    <figure>
+      <div class="frame"><div class="app" id="app" aria-label="Interactive demo of Fleet on a phone">
+        <div class="app-top">
+          <div class="app-head"><img src="assets/grinaker-mark.png" alt="" width="180" height="180"><b>Fleet</b><span class="live">Live</span><span class="search">Search</span></div>
+          <div class="seg" role="tablist" aria-label="Fleet views"><button role="tab" data-view="sessions" aria-selected="true" class="on">Sessions</button><button role="tab" data-view="inbox" aria-selected="false">Inbox <em>13</em></button><button role="tab" data-view="library" aria-selected="false">Library</button></div>
+          <div class="chips" data-only="sessions"><button data-filter="all" aria-pressed="true" class="on">All <i>50</i></button><button data-filter="needs" aria-pressed="false"><s class="d q"></s>Needs you <em>13</em></button><button data-filter="working" aria-pressed="false"><s class="d w"></s>Working <i>0</i></button><button data-filter="review" aria-pressed="false"><s class="d r"></s>Ready for review <i>2</i></button></div>
+        </div>
+        <div data-only="sessions">
+          <div class="app-status"><p><span class="ok"><s class="d w"></s>Live · updated 10:06</span><span class="ok">Cloud synced just now</span></p><p>50 sessions · 2 on this Mac · 48 in the cloud</p><p>Bridge up<span class="r">Notifications off</span></p></div>
+          <div class="seg two"><button data-group="status" aria-pressed="false">By status</button><button data-group="project" aria-pressed="true" class="on">By project</button></div>
+          <div id="app-list"></div>
+        </div>
+        <div data-only="inbox" hidden>
+          <p class="app-note">Ranked by how long each one has waited and how many agents it holds up.</p>
+          <div class="group"><div id="inbox-item"></div></div>
+          <p class="app-note">13 are waiting. Only the one from my own project is shown here.</p>
+        </div>
+        <div data-only="library" hidden>
+          <p class="app-note">Files, artifacts and PRs from every session, in one place. Documents are saved to the project's OUTPUTS folder.</p>
+          <div class="group"><p class="gh"><span>Grinaker Technologies</span><span>PR</span></p><div class="lib"><b>PR #14</b><span>From "Access Fleet from my phone"</span></div></div>
+        </div>
+      </div></div>
+    </figure>
+  </section>
+
   <section class="block" aria-label="Fleet in numbers">
     <div class="stats">
       <div class="stat"><b>24</b><span>sessions supervised in one day at my peak (6 Oct 2026)</span></div>
@@ -210,5 +308,38 @@ p { margin: 0; }
     <div class="links"><a class="mail" href="mailto:matt@grinaker.tech">matt@grinaker.tech</a><a href="https://www.linkedin.com/in/mk-grinaker" target="_blank" rel="noopener">LinkedIn</a></div>
   </section>
 </main>
+<script>
+// Fleet phone demo: tabs, filters and grouping over the one thread shown publicly
+(() => {
+  const app = document.getElementById("app");
+  if (!app) return;
+  const state = { view: "sessions", filter: "all", group: "project", open: false };
+  const thread = () => `<div class="thread" data-thread role="button" tabindex="0" aria-expanded="${state.open}"><p class="tt"><s class="d q"></s><b>Access Fleet from my phone</b><span class="tag">Question</span></p><p class="ask">Merge PR #14, then run ./fleet.sh update</p><div class="bar"><i style="width:83%"></i></div><p class="meta">Project thread · 5/6 tasks · just now</p>${state.open ? `<div class="reply"><span>Answer from here…</span><b>Send</b></div>` : ""}</div>`;
+  const empty = { working: "Nothing running right now.", review: "2 threads are ready for review. Only my own project is shown here." };
+  const render = () => {
+    app.querySelectorAll("[data-only]").forEach((el) => { el.hidden = el.dataset.only !== state.view; });
+    app.querySelectorAll("[data-view]").forEach((b) => { const on = b.dataset.view === state.view; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
+    app.querySelectorAll("[data-filter]").forEach((b) => { const on = b.dataset.filter === state.filter; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+    app.querySelectorAll("[data-group]").forEach((b) => { const on = b.dataset.group === state.group; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+    const head = state.group === "project" ? `<p class="gh"><span>Grinaker Technologies</span><span>1 thread</span></p>` : `<p class="gh"><span>Needs you</span><span>1 shown</span></p>`;
+    const body = empty[state.filter] ? `<p class="app-empty">${empty[state.filter]}</p>` : head + thread();
+    document.getElementById("app-list").innerHTML = `<div class="group">${body}</div>`;
+    document.getElementById("inbox-item").innerHTML = `<p class="gh"><span>1 · Waiting just now</span><span>Grinaker Technologies</span></p>` + thread();
+  };
+  app.addEventListener("click", (e) => {
+    const b = e.target.closest("button, [data-thread]");
+    if (!b) return;
+    if (b.dataset.view) state.view = b.dataset.view;
+    else if (b.dataset.filter) state.filter = b.dataset.filter;
+    else if (b.dataset.group) state.group = b.dataset.group;
+    else if (b.hasAttribute("data-thread")) state.open = !state.open;
+    render();
+  });
+  app.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.key === " ") && e.target.hasAttribute("data-thread")) { e.preventDefault(); e.target.click(); }
+  });
+  render();
+})();
+</script>
 </body>
 </html>
